@@ -10,9 +10,17 @@ namespace ArtInstitute.Controllers
     {
         //Quan ly Login va Public Data
         // GET: Home
-        public ActionResult Index()
+        public ActionResult HomeIndex()
         {
             return View();
+        }
+
+        public ActionResult CallUserIndex()
+        {
+            var ctrl = new UserController();
+            ctrl.ControllerContext = ControllerContext;
+            //call action
+            return ctrl.UserIndex();
         }
     }
 }

@@ -9,7 +9,7 @@ namespace ArtInstitute.Controllers
     public class CompetitionController : Controller
     {
         // GET: Competition
-        public ActionResult Index()
+        public ActionResult CompetitionIndex()
         {
             return View();
         }

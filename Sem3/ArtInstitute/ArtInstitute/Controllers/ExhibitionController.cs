@@ -9,7 +9,7 @@ namespace ArtInstitute.Controllers
     public class ExhibitionController : Controller
     {
         // GET: Exhibition
-        public ActionResult Index()
+        public ActionResult ExhibitionIndex()
         {
             return View();
         }

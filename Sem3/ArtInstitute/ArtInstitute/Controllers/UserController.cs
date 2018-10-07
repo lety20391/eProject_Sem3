@@ -8,8 +8,8 @@ namespace ArtInstitute.Controllers
 {
     public class UserController : Controller
     {
-        // GET: Admin
-        public ActionResult Index()
+        // GET: User
+        public ActionResult UserIndex()
         {
             return View();
         }

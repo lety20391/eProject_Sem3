@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "HomeIndex";
+}
+
+<h2>HomeIndex</h2>
+<p onclick="go()" class="btn btn-default"> Go to User</p>
+<script>
+    function go()
+    {
+        window.location.replace("http://" +  window.location.host + "/User/UserIndex");
+    }
+</script>
+

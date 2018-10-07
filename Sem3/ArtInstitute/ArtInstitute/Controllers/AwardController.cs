@@ -9,7 +9,7 @@ namespace ArtInstitute.Controllers
     public class AwardController : Controller
     {
         // GET: Award
-        public ActionResult Index()
+        public ActionResult AwardIndex()
         {
             return View();
         }
