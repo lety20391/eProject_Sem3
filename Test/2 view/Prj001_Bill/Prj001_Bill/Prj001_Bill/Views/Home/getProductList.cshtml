@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Prj001_Bill.Models.Product>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.IDProduct)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.productContent)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.IDProduct)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.productContent)
+        </td>
+        
+    </tr>
+}
+
+</table>
+    </div>

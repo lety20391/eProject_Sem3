@@ -1,0 +1,71 @@
+﻿@model IEnumerable<Prj001_Bill.Models.Product>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>getList</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IDProduct)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.productContent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Info1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Info2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Info3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Info4)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IDProduct)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.productContent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Info1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Info2)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Info3)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Info4)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.IDgenerate }) |
+                @Html.ActionLink("Details", "Details", new { id=item.IDgenerate }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.IDgenerate })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>
