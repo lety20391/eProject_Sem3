@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="ConnectString-Web.config Connection String" description="ConnectString Connection String used in web.config by the application to access the database." defaultValue="server=.;database=VietPhap2018; uid=sa; pwd=abc123;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Dat\ ThinkPad\\Desktop\\VietPhap2018\\VietPhap2018\\VietPhap2018\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ConnectString']/@connectionString" />
+  </parameter>
+</parameters>
