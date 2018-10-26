@@ -113,6 +113,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Award.cs" />
+    <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\Competition.cs" />
+    <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Exam.cs" />
+    <Compile Include="Models\Exhibition.cs" />
+    <Compile Include="Models\Manager.cs" />
+    <Compile Include="Models\Staff.cs" />
+    <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -140,7 +150,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
