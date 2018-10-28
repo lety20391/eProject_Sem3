@@ -1,0 +1,25 @@
+USE [eProject3DB]
+GO
+
+
+CREATE TABLE [dbo].[Comment](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[CommentID]  AS ('COMMENT'+CONVERT([varchar](20),[ID])) PERSISTED NOT NULL,
+	[Detail] [nvarchar](200) NULL,
+	[UserID] [varchar](24) NOT NULL,
+	[MainID] [varchar](40) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[CommentID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Comment]  WITH CHECK ADD  CONSTRAINT [FK_Comment_User] FOREIGN KEY([UserID])
+REFERENCES [dbo].[User] ([IDUser])
+GO
+
+ALTER TABLE [dbo].[Comment] CHECK CONSTRAINT [FK_Comment_User]
+GO
+
+

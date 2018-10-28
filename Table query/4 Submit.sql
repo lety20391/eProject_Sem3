@@ -1,0 +1,17 @@
+USE [eProject3DB]
+GO
+
+CREATE TABLE [dbo].[Submit](
+	[ID] [int] IDENTITY(1,1) NOT NULL,
+	[IDSubmit]  AS ('SUBMIT'+CONVERT([varchar](20),[ID])) PERSISTED NOT NULL,
+	[Entity1ID] [varchar](40) NULL,
+	[Entity2ID] [varchar](4) NULL,
+	[Type] [nvarchar](10) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[IDSubmit] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
