@@ -161,6 +161,7 @@
     <Compile Include="Controllers\CompetitionsController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\ExamsController.cs" />
+    <Compile Include="Controllers\ExhibitionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
@@ -255,6 +256,11 @@
     <Content Include="Views\Exams\Details.cshtml" />
     <Content Include="Views\Exams\Edit.cshtml" />
     <Content Include="Views\Exams\Index.cshtml" />
+    <Content Include="Views\Exhibitions\Create.cshtml" />
+    <Content Include="Views\Exhibitions\Delete.cshtml" />
+    <Content Include="Views\Exhibitions\Details.cshtml" />
+    <Content Include="Views\Exhibitions\Edit.cshtml" />
+    <Content Include="Views\Exhibitions\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
