@@ -16,7 +16,7 @@ namespace MainProject3.Controllers
 
         // GET: Users
         public ActionResult Index()
-        {
+        {            
             return View(db.Users.ToList());
         }
 
