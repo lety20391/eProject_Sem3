@@ -5,7 +5,7 @@
 
 # User-specific files
 *.rsuser
-MainProject3\*.suo
+*.suo
 *.user
 *.userosscache
 *.sln.docstates
