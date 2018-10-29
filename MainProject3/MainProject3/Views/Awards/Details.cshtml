@@ -1,0 +1,50 @@
+﻿@model MainProject3.Models.Award
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Award</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriceLevied)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriceLevied)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompetitionID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompetitionID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AwardID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
