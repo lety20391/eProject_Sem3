@@ -17,7 +17,7 @@ namespace MainProject3.Controllers
         // GET: Users
         public ActionResult Index()
         {            
-            return View(db.Users.ToList());
+            return View("Index", "_Layout", db.Users.ToList());
         }
 
         // GET: Users/Details/5
@@ -32,13 +32,13 @@ namespace MainProject3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View("Details", "_Layout", user);
         }
 
         // GET: Users/Create
         public ActionResult Create()
         {
-            return View();
+            return View("Create", "_Layout");
         }
 
         // POST: Users/Create
@@ -55,7 +55,7 @@ namespace MainProject3.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(user);
+            return View("Create", "_Layout", user);
         }
 
         // GET: Users/Edit/5
@@ -70,7 +70,7 @@ namespace MainProject3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View("Edit", "_Layout", user);
         }
 
         // POST: Users/Edit/5
@@ -86,7 +86,7 @@ namespace MainProject3.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(user);
+            return View("Edit", "_Layout", user);
         }
 
         // GET: Users/Delete/5
@@ -101,7 +101,7 @@ namespace MainProject3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(user);
+            return View("Delete", "_Layout", user);
         }
 
         // POST: Users/Delete/5
