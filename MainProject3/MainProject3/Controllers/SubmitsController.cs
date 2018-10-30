@@ -17,7 +17,7 @@ namespace MainProject3.Controllers
         // GET: Submits
         public ActionResult Index()
         {
-            return View(db.Submits.ToList());
+            return View("Index", "_Layout", db.Submits.ToList());
         }
 
         // GET: Submits/Details/5
@@ -32,13 +32,13 @@ namespace MainProject3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(submit);
+            return View("Details", "_Layout", submit);
         }
 
         // GET: Submits/Create
         public ActionResult Create()
         {
-            return View();
+            return View("Create", "_Layout");
         }
 
         // POST: Submits/Create
@@ -55,7 +55,7 @@ namespace MainProject3.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(submit);
+            return View("Create", "_Layout", submit);
         }
 
         // GET: Submits/Edit/5
@@ -70,7 +70,7 @@ namespace MainProject3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(submit);
+            return View("Edit", "_Layout", submit);
         }
 
         // POST: Submits/Edit/5
@@ -86,7 +86,7 @@ namespace MainProject3.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(submit);
+            return View("Edit", "_Layout", submit);
         }
 
         // GET: Submits/Delete/5
@@ -101,7 +101,7 @@ namespace MainProject3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(submit);
+            return View("Delete", "_Layout", submit);
         }
 
         // POST: Submits/Delete/5
