@@ -18,7 +18,7 @@ namespace MainProject3.Controllers
         public ActionResult Index()
         {
             var customers = db.Customers.Include(c => c.Exam).Include(c => c.Exhibition);
-            return View(customers.ToList());
+            return View("Index", "_Layout", customers.ToList());
         }
 
         // GET: Customers/Details/5
@@ -33,7 +33,7 @@ namespace MainProject3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(customer);
+            return View("Details", "_Layout", customer);
         }
 
         // GET: Customers/Create
@@ -41,7 +41,7 @@ namespace MainProject3.Controllers
         {
             ViewBag.IDExam = new SelectList(db.Exams, "ExamID", "Path");
             ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail");
-            return View();
+            return View("Create", "_Layout");
         }
 
         // POST: Customers/Create
@@ -60,7 +60,7 @@ namespace MainProject3.Controllers
 
             ViewBag.IDExam = new SelectList(db.Exams, "ExamID", "Path", customer.IDExam);
             ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail", customer.IDExhibition);
-            return View(customer);
+            return View("Create", "_Layout", customer);
         }
 
         // GET: Customers/Edit/5
@@ -77,7 +77,7 @@ namespace MainProject3.Controllers
             }
             ViewBag.IDExam = new SelectList(db.Exams, "ExamID", "Path", customer.IDExam);
             ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail", customer.IDExhibition);
-            return View(customer);
+            return View("Edit", "_Layout", customer);
         }
 
         // POST: Customers/Edit/5
@@ -95,7 +95,7 @@ namespace MainProject3.Controllers
             }
             ViewBag.IDExam = new SelectList(db.Exams, "ExamID", "Path", customer.IDExam);
             ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail", customer.IDExhibition);
-            return View(customer);
+            return View("Edit", "_Layout", customer);
         }
 
         // GET: Customers/Delete/5
@@ -110,7 +110,7 @@ namespace MainProject3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(customer);
+            return View("Delete", "_Layout", customer);
         }
 
         // POST: Customers/Delete/5
