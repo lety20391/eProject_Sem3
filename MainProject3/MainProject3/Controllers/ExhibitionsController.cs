@@ -17,7 +17,7 @@ namespace MainProject3.Controllers
         // GET: Exhibitions
         public ActionResult Index()
         {
-            return View(db.Exhibitions.ToList());
+            return View("Index", "_Layout", db.Exhibitions.ToList());
         }
 
         // GET: Exhibitions/Details/5
@@ -32,13 +32,13 @@ namespace MainProject3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(exhibition);
+            return View("Details", "_Layout", exhibition);
         }
 
         // GET: Exhibitions/Create
         public ActionResult Create()
         {
-            return View();
+            return View("Create", "_Layout");
         }
 
         // POST: Exhibitions/Create
@@ -55,7 +55,7 @@ namespace MainProject3.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(exhibition);
+            return View("Create", "_Layout", exhibition);
         }
 
         // GET: Exhibitions/Edit/5
@@ -70,7 +70,7 @@ namespace MainProject3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(exhibition);
+            return View("Edit", "_Layout", exhibition);
         }
 
         // POST: Exhibitions/Edit/5
@@ -86,7 +86,7 @@ namespace MainProject3.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(exhibition);
+            return View("Edit", "_Layout", exhibition);
         }
 
         // GET: Exhibitions/Delete/5
@@ -101,7 +101,7 @@ namespace MainProject3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(exhibition);
+            return View("Delete", "_Layout", exhibition);
         }
 
         // POST: Exhibitions/Delete/5
