@@ -283,7 +283,7 @@
                 <li class="dropdown dropdown-user">
                     <a class="dropdown-toggle" data-toggle="dropdown">
                         <img src="../../../../global_assets/images/placeholders/placeholder.jpg" alt="">
-                        <span>Victoria</span>
+                        <span>@Context.User.Identity.Name</span>
                         <i class="caret"></i>
                     </a>
 
@@ -316,7 +316,7 @@
                             <div class="media">
                                 <a href="#" class="media-left"><img src="../../../../global_assets/images/placeholders/placeholder.jpg" class="img-circle img-sm" alt=""></a>
                                 <div class="media-body">
-                                    <span class="media-heading text-semibold">Victoria Baker</span>
+                                    <span class="media-heading text-semibold">@Context.User.Identity.Name</span>
                                     <div class="text-size-mini text-muted">
                                         <i class="icon-pin text-size-small"></i> &nbsp;Santa Ana, CA
                                     </div>
@@ -342,20 +342,24 @@
                                 <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
                                 <li class="active"><a href="index.html"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
                                 <li>
-                                    <a href="#"><i class="icon-stack2"></i> <span>Page layouts</span></a>
+                                    <a href="#"><i class="icon-stack2"></i> <span>Manage</span></a>
                                     <ul>
-                                        <li><a href="layout_navbar_fixed.html">Fixed navbar</a></li>
-                                        <li><a href="layout_navbar_sidebar_fixed.html">Fixed navbar &amp; sidebar</a></li>
-                                        <li><a href="layout_sidebar_fixed_native.html">Fixed sidebar native scroll</a></li>
-                                        <li><a href="layout_navbar_hideable.html">Hideable navbar</a></li>
-                                        <li><a href="layout_navbar_hideable_sidebar.html">Hideable &amp; fixed sidebar</a></li>
-                                        <li><a href="layout_footer_fixed.html">Fixed footer</a></li>
+                                        <li><a href="/Users/Index">User</a></li>
+                                        <li><a href="/Students/Index">Student</a></li>
+                                        <li><a href="/Staffs/Index">Staff</a></li>
+                                        <li><a href="/Exhibitions/Index">Exhibition</a></li>
+                                        <li><a href="/Exams/Index">Exam</a></li>
+                                        <li><a href="/Customers/Index">Customer</a></li>
+                                        <li><a href="/Comments/Index">Comment</a></li>
+                                        <li><a href="/Classes/Index">Class</a></li>
+                                        <li><a href="/Awards/Index">Award</a></li>
                                         <li class="navigation-divider"></li>
                                         <li><a href="boxed_default.html">Boxed with default sidebar</a></li>
                                         <li><a href="boxed_mini.html">Boxed with mini sidebar</a></li>
                                         <li><a href="boxed_full.html">Boxed full width</a></li>
                                     </ul>
                                 </li>
+
                                 <li>
                                     <a href="#"><i class="icon-copy"></i> <span>Layouts</span></a>
                                     <ul>
@@ -367,6 +371,7 @@
                                         <li class="disabled"><a href="../../../../layout_6/LTR/default/full/index.html" id="layout6">Layout 6 <span class="label label-transparent">Coming soon</span></a></li>
                                     </ul>
                                 </li>
+
                                 <li>
                                     <a href="#"><i class="icon-droplet2"></i> <span>Color system</span></a>
                                     <ul>
@@ -389,6 +394,7 @@
                                         <li><a href="colors_slate.html">Slate palette</a></li>
                                     </ul>
                                 </li>
+
                                 <li>
                                     <a href="#"><i class="icon-stack"></i> <span>Starter kit</span></a>
                                     <ul>
@@ -419,6 +425,7 @@
                                         <li><a href="../seed/layout_fixed.html">Fixed layout</a></li>
                                     </ul>
                                 </li>
+
                                 <li><a href="changelog.html"><i class="icon-list-unordered"></i> <span>Changelog <span class="label bg-blue-400">2.0</span></span></a></li>
                                 <li><a href="../../../RTL/default/full/index.html"><i class="icon-width"></i> <span>RTL version</span></a></li>
                                 <!-- /main -->
@@ -447,6 +454,7 @@
                                         <li><a href="form_inputs_grid.html">Inputs grid</a></li>
                                     </ul>
                                 </li>
+
                                 <li>
                                     <a href="#"><i class="icon-file-css"></i> <span>JSON forms</span></a>
                                     <ul>
@@ -455,6 +463,7 @@
                                         <li><a href="alpaca_controls.html">Controls</a></li>
                                     </ul>
                                 </li>
+
                                 <li>
                                     <a href="#"><i class="icon-footprint"></i> <span>Wizards</span></a>
                                     <ul>
@@ -463,6 +472,7 @@
                                         <li><a href="wizard_stepy.html">Stepy wizard</a></li>
                                     </ul>
                                 </li>
+
                                 <li>
                                     <a href="#"><i class="icon-spell-check"></i> <span>Editors</span></a>
                                     <ul>
@@ -472,6 +482,7 @@
                                         <li><a href="editor_code.html">Code editor</a></li>
                                     </ul>
                                 </li>
+
                                 <li>
                                     <a href="#"><i class="icon-select2"></i> <span>Pickers</span></a>
                                     <ul>
@@ -480,6 +491,7 @@
                                         <li><a href="picker_location.html">Location pickers</a></li>
                                     </ul>
                                 </li>
+
                                 <li>
                                     <a href="#"><i class="icon-insert-template"></i> <span>Form layouts</span></a>
                                     <ul>
@@ -487,6 +499,7 @@
                                         <li><a href="form_layout_horizontal.html">Horizontal form</a></li>
                                     </ul>
                                 </li>
+
                                 <!-- /forms -->
                                 <!-- Appearance -->
                                 <li class="navigation-header"><span>Appearance</span> <i class="icon-menu" title="Appearance"></i></li>

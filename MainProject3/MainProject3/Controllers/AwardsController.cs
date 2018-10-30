@@ -17,7 +17,7 @@ namespace MainProject3.Controllers
         // GET: Awards
         public ActionResult Index()
         {
-            return View(db.Awards.ToList());
+            return View("Index", "_Layout", db.Awards.ToList());
         }
 
         // GET: Awards/Details/5
@@ -32,13 +32,13 @@ namespace MainProject3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(award);
+            return View("Details", "_Layout", award);
         }
 
         // GET: Awards/Create
         public ActionResult Create()
         {
-            return View();
+            return View("Create", "_Layout");
         }
 
         // POST: Awards/Create
@@ -55,7 +55,7 @@ namespace MainProject3.Controllers
                 return RedirectToAction("Index");
             }
 
-            return View(award);
+            return View("Create", "_Layout", award);
         }
 
         // GET: Awards/Edit/5
@@ -70,7 +70,7 @@ namespace MainProject3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(award);
+            return View("Edit", "_Layout", award);
         }
 
         // POST: Awards/Edit/5
@@ -86,7 +86,7 @@ namespace MainProject3.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(award);
+            return View("Edit", "_Layout" ,award);
         }
 
         // GET: Awards/Delete/5
@@ -101,7 +101,7 @@ namespace MainProject3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(award);
+            return View("Delete" , "_Layout",award);
         }
 
         // POST: Awards/Delete/5
