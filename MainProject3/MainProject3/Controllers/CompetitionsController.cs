@@ -18,7 +18,7 @@ namespace MainProject3.Controllers
         public ActionResult Index()
         {
             var competitions = db.Competitions.Include(c => c.Award);
-            return View(competitions.ToList());
+            return View("Index", "_Layout", competitions.ToList());
         }
 
         // GET: Competitions/Details/5
@@ -33,14 +33,14 @@ namespace MainProject3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(competition);
+            return View("Details", "_Layout", competition);
         }
 
         // GET: Competitions/Create
         public ActionResult Create()
         {
             ViewBag.AwardID = new SelectList(db.Awards, "AwardID", "CompetitionID");
-            return View();
+            return View("Create", "_Layout");
         }
 
         // POST: Competitions/Create
@@ -58,7 +58,7 @@ namespace MainProject3.Controllers
             }
 
             ViewBag.AwardID = new SelectList(db.Awards, "AwardID", "CompetitionID", competition.AwardID);
-            return View(competition);
+            return View("Create", "_Layout", competition);
         }
 
         // GET: Competitions/Edit/5
@@ -74,7 +74,7 @@ namespace MainProject3.Controllers
                 return HttpNotFound();
             }
             ViewBag.AwardID = new SelectList(db.Awards, "AwardID", "CompetitionID", competition.AwardID);
-            return View(competition);
+            return View("Edit", "_Layout", competition);
         }
 
         // POST: Competitions/Edit/5
@@ -91,7 +91,7 @@ namespace MainProject3.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.AwardID = new SelectList(db.Awards, "AwardID", "CompetitionID", competition.AwardID);
-            return View(competition);
+            return View("Edit", "_Layout", competition);
         }
 
         // GET: Competitions/Delete/5
@@ -106,7 +106,7 @@ namespace MainProject3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(competition);
+            return View("Delete", "_Layout", competition);
         }
 
         // POST: Competitions/Delete/5
