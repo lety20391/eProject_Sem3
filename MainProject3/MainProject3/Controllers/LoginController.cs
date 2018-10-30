@@ -58,5 +58,13 @@ namespace MainProject3.Controllers
             }
             return RedirectToAction("Index", "Login");
         }
+
+        public ActionResult Logout()
+        {
+            Session.Clear();
+            Session.Abandon();
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Login");
+        }
     }
 }
