@@ -18,7 +18,7 @@ namespace MainProject3.Controllers
         public ActionResult Index()
         {
             var comments = db.Comments.Include(c => c.User);
-            return View(comments.ToList());
+            return View("Index", "_Layout", comments.ToList());
         }
 
         // GET: Comments/Details/5
@@ -33,14 +33,14 @@ namespace MainProject3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(comment);
+            return View("Deatails", "_Layout", comment);
         }
 
         // GET: Comments/Create
         public ActionResult Create()
         {
             ViewBag.UserID = new SelectList(db.Users, "IDUser", "UserNick");
-            return View();
+            return View("Create", "_Layout");
         }
 
         // POST: Comments/Create
@@ -58,7 +58,7 @@ namespace MainProject3.Controllers
             }
 
             ViewBag.UserID = new SelectList(db.Users, "IDUser", "UserNick", comment.UserID);
-            return View(comment);
+            return View("Create", "_Layout", comment);
         }
 
         // GET: Comments/Edit/5
@@ -74,7 +74,7 @@ namespace MainProject3.Controllers
                 return HttpNotFound();
             }
             ViewBag.UserID = new SelectList(db.Users, "IDUser", "UserNick", comment.UserID);
-            return View(comment);
+            return View("Edit", "_Layout", comment);
         }
 
         // POST: Comments/Edit/5
@@ -91,7 +91,7 @@ namespace MainProject3.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.UserID = new SelectList(db.Users, "IDUser", "UserNick", comment.UserID);
-            return View(comment);
+            return View("Edit", "_Layout", comment);
         }
 
         // GET: Comments/Delete/5
@@ -106,7 +106,7 @@ namespace MainProject3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(comment);
+            return View("Delete", "_Layout", comment);
         }
 
         // POST: Comments/Delete/5
