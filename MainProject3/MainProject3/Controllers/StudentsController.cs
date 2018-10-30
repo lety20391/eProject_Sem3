@@ -18,7 +18,7 @@ namespace MainProject3.Controllers
         public ActionResult Index()
         {
             var students = db.Students.Include(s => s.Class);
-            return View(students.ToList());
+            return View("Index", "_Layout", students.ToList());
         }
 
         // GET: Students/Details/5
@@ -33,14 +33,14 @@ namespace MainProject3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return View("Details", "_Layout", student);
         }
 
         // GET: Students/Create
         public ActionResult Create()
         {
             ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName");
-            return View();
+            return View("Create", "_Layout");
         }
 
         // POST: Students/Create
@@ -58,7 +58,7 @@ namespace MainProject3.Controllers
             }
 
             ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName", student.ClassID);
-            return View(student);
+            return View("Create", "_Layout", student);
         }
 
         // GET: Students/Edit/5
@@ -74,7 +74,7 @@ namespace MainProject3.Controllers
                 return HttpNotFound();
             }
             ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName", student.ClassID);
-            return View(student);
+            return View("Edit", "_Layout", student);
         }
 
         // POST: Students/Edit/5
@@ -91,7 +91,7 @@ namespace MainProject3.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName", student.ClassID);
-            return View(student);
+            return View("Edit", "_Layout", student);
         }
 
         // GET: Students/Delete/5
@@ -106,7 +106,7 @@ namespace MainProject3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return View("Delete", "_Layout", student);
         }
 
         // POST: Students/Delete/5
