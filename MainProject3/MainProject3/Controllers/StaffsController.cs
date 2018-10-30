@@ -18,7 +18,7 @@ namespace MainProject3.Controllers
         public ActionResult Index()
         {
             var staffs = db.Staffs.Include(s => s.Class);
-            return View(staffs.ToList());
+            return View("Index", "_Layout", staffs.ToList());
         }
 
         // GET: Staffs/Details/5
@@ -33,14 +33,14 @@ namespace MainProject3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(staff);
+            return View("Details", "_Layout", staff);
         }
 
         // GET: Staffs/Create
         public ActionResult Create()
         {
             ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName");
-            return View();
+            return View("Create", "_Layout");
         }
 
         // POST: Staffs/Create
@@ -58,7 +58,7 @@ namespace MainProject3.Controllers
             }
 
             ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName", staff.ClassID);
-            return View(staff);
+            return View("Create", "_Layout", staff);
         }
 
         // GET: Staffs/Edit/5
@@ -74,7 +74,7 @@ namespace MainProject3.Controllers
                 return HttpNotFound();
             }
             ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName", staff.ClassID);
-            return View(staff);
+            return View("Edit", "_Layout", staff);
         }
 
         // POST: Staffs/Edit/5
@@ -91,7 +91,7 @@ namespace MainProject3.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName", staff.ClassID);
-            return View(staff);
+            return View("Edit", "_Layout", staff);
         }
 
         // GET: Staffs/Delete/5
@@ -106,7 +106,7 @@ namespace MainProject3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(staff);
+            return View("Delete", "_Layout", staff);
         }
 
         // POST: Staffs/Delete/5
