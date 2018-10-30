@@ -18,7 +18,7 @@ namespace MainProject3.Controllers
         public ActionResult Index()
         {
             var exams = db.Exams.Include(e => e.Award).Include(e => e.Competition).Include(e => e.Exhibition).Include(e => e.Student);
-            return View(exams.ToList());
+            return View("Index", "_Layout", exams.ToList());
         }
 
         // GET: Exams/Details/5
@@ -33,7 +33,7 @@ namespace MainProject3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(exam);
+            return View("Details", "_Layout", exam);
         }
 
         // GET: Exams/Create
@@ -43,7 +43,7 @@ namespace MainProject3.Controllers
             ViewBag.IDCompetition = new SelectList(db.Competitions, "CompetitionID", "Detail");
             ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail");
             ViewBag.IDStudent = new SelectList(db.Students, "StudentID", "Name");
-            return View();
+            return View("Create", "_Layout");
         }
 
         // POST: Exams/Create
@@ -64,7 +64,7 @@ namespace MainProject3.Controllers
             ViewBag.IDCompetition = new SelectList(db.Competitions, "CompetitionID", "Detail", exam.IDCompetition);
             ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail", exam.IDExhibition);
             ViewBag.IDStudent = new SelectList(db.Students, "StudentID", "Name", exam.IDStudent);
-            return View(exam);
+            return View("Create", "_Layout", exam);
         }
 
         // GET: Exams/Edit/5
@@ -83,7 +83,7 @@ namespace MainProject3.Controllers
             ViewBag.IDCompetition = new SelectList(db.Competitions, "CompetitionID", "Detail", exam.IDCompetition);
             ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail", exam.IDExhibition);
             ViewBag.IDStudent = new SelectList(db.Students, "StudentID", "Name", exam.IDStudent);
-            return View(exam);
+            return View("Edit", "_Layout", exam);
         }
 
         // POST: Exams/Edit/5
@@ -103,7 +103,7 @@ namespace MainProject3.Controllers
             ViewBag.IDCompetition = new SelectList(db.Competitions, "CompetitionID", "Detail", exam.IDCompetition);
             ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail", exam.IDExhibition);
             ViewBag.IDStudent = new SelectList(db.Students, "StudentID", "Name", exam.IDStudent);
-            return View(exam);
+            return View("Edit", "_Layout", exam);
         }
 
         // GET: Exams/Delete/5
@@ -118,7 +118,7 @@ namespace MainProject3.Controllers
             {
                 return HttpNotFound();
             }
-            return View(exam);
+            return View("Delete", "_Layout", exam);
         }
 
         // POST: Exams/Delete/5
