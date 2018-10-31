@@ -8,28 +8,30 @@ using System.Web;
 using System.Web.Mvc;
 using MainProjectNew.Models;
 
+using System.Security.Principal;
+
 namespace MainProjectNew.Controllers
 {
     public class AwardsController : Controller
     {
         private ModelMain db = new ModelMain();
-        [Authorize(Roles = "Admin, Staff, Manager, Student")]
         // GET: Awards
         public ActionResult Index()
         {
-            if (User.IsInRole("Admin, Staff, Manager, Student"))
-            {
+              if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Staff") || User.IsInRole("Student"))
+            {               
                 return View("Index", "_Layout", db.Awards.ToList());
             }
             else
-
+            { 
                 return RedirectToAction("Contact", "Home");
+            }
         }
         
         // GET: Awards/Details/5
         public ActionResult Details(string id)
         {
-            if (User.IsInRole("Admin, Staff, Manager, Student"))
+            if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Staff") || User.IsInRole("Student"))
             {
                 if (id == null)
                 {
@@ -51,7 +53,7 @@ namespace MainProjectNew.Controllers
         // GET: Awards/Create
         public ActionResult Create()
         {
-            if (User.IsInRole("Admin, Staff"))
+            if (User.IsInRole("Admin") || User.IsInRole("Staff"))
             {
                 ViewBag.CompetitionID = new SelectList(db.Competitions, "CompetitionID", "Detail");
                 return View("Create", "_Layout");
@@ -68,7 +70,7 @@ namespace MainProjectNew.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "AwardID,num,PriceLevied,CompetitionID,Quantity")] Award award)
         {
-            if (User.IsInRole("Admin, Staff"))
+            if (User.IsInRole("Admin") || User.IsInRole("Staff"))
             {
                 if (ModelState.IsValid)
                 {
@@ -86,7 +88,7 @@ namespace MainProjectNew.Controllers
         // GET: Awards/Edit/5
         public ActionResult Edit(string id)
         {
-            if (User.IsInRole("Admin, Staff"))
+            if (User.IsInRole("Admin") || User.IsInRole("Staff"))
             {
                 if (id == null)
                 {
@@ -112,7 +114,7 @@ namespace MainProjectNew.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "AwardID,num,PriceLevied,CompetitionID,Quantity")] Award award)
         {
-            if (User.IsInRole("Admin, Staff"))
+            if (User.IsInRole("Admin") || User.IsInRole("Staff"))
             {
                 if (ModelState.IsValid)
                 {
@@ -134,7 +136,7 @@ namespace MainProjectNew.Controllers
         // GET: Awards/Delete/5
         public ActionResult Delete(string id)
         {
-            if (User.IsInRole("Admin, Staff"))
+            if (User.IsInRole("Admin") || User.IsInRole("Staff"))
             {
                 if (id == null)
                 {
@@ -158,7 +160,7 @@ namespace MainProjectNew.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            if (User.IsInRole("Admin, Staff"))
+            if (User.IsInRole("Admin") || User.IsInRole("Staff"))
             {
                 Award award = db.Awards.Find(id);
                 db.Awards.Remove(award);
