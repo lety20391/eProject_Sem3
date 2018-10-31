@@ -13,13 +13,13 @@ namespace MainProjectNew.Controllers
     public class AwardsController : Controller
     {
         private ModelMain db = new ModelMain();
-
+        [Authorize(Roles = "Admin, Staff, Manager, Student")]
         // GET: Awards
         public ActionResult Index()
         {
             return View("Index", "_Layout",db.Awards.ToList());
         }
-
+        [Authorize(Roles = "Admin, Staff, Manager, Student")]
         // GET: Awards/Details/5
         public ActionResult Details(string id)
         {
@@ -34,7 +34,7 @@ namespace MainProjectNew.Controllers
             }
             return View("Details", "_Layout",award);
         }
-
+        [Authorize(Roles = "Admin, Staff")]
         // GET: Awards/Create
         public ActionResult Create()
         {
@@ -47,6 +47,7 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Create([Bind(Include = "AwardID,num,PriceLevied,CompetitionID,Quantity")] Award award)
         {
             if (ModelState.IsValid)
@@ -58,7 +59,7 @@ namespace MainProjectNew.Controllers
 
             return View("Create", "_Layout",award);
         }
-
+        [Authorize(Roles = "Admin, Staff")]
         // GET: Awards/Edit/5
         public ActionResult Edit(string id)
         {
@@ -80,6 +81,7 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Edit([Bind(Include = "AwardID,num,PriceLevied,CompetitionID,Quantity")] Award award)
         {
             if (ModelState.IsValid)
@@ -93,6 +95,7 @@ namespace MainProjectNew.Controllers
         }
 
         // GET: Awards/Delete/5
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -110,6 +113,7 @@ namespace MainProjectNew.Controllers
         // POST: Awards/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult DeleteConfirmed(string id)
         {
             Award award = db.Awards.Find(id);
