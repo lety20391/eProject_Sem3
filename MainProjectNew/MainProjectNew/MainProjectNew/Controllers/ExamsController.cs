@@ -18,73 +18,116 @@ namespace MainProjectNew.Controllers
         // GET: Exams
         public ActionResult Index()
         {
-            var exams = db.Exams.Include(e => e.Award).Include(e => e.Competition).Include(e => e.Exhibition).Include(e => e.Student);
-            return View("Index", "_Layout",exams.ToList());
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Manager") || User.IsInRole("Student"))
+            {
+                var exams = db.Exams.Include(e => e.Award).Include(e => e.Competition).Include(e => e.Exhibition).Include(e => e.Student);
+                return View("Index", "_Layout", exams.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         // GET: Exams/Details/5
         public ActionResult Details(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Manager") || User.IsInRole("Student"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Exam exam = db.Exams.Find(id);
+                if (exam == null)
+                {
+                    return HttpNotFound();
+                }
+                return View("Details", "_Layout", exam);
+
             }
-            Exam exam = db.Exams.Find(id);
-            if (exam == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Contact", "Home");
             }
-            return View("Details", "_Layout",exam);
+
         }
 
         // GET: Exams/Create
         public ActionResult Create()
         {
-            ViewBag.IDAward = new SelectList(db.Awards, "AwardID", "CompetitionID");
-            ViewBag.IDCompetition = new SelectList(db.Competitions, "CompetitionID", "Detail");
-            ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail");
-            ViewBag.IDStudent = new SelectList(db.Students, "StudentID", "Name");
-            return View("Create", "_Layout");
+            if (User.IsInRole("Admin") || User.IsInRole("Staff")|| User.IsInRole("Student"))
+            {
+                ViewBag.IDAward = new SelectList(db.Awards, "AwardID", "CompetitionID");
+                ViewBag.IDCompetition = new SelectList(db.Competitions, "CompetitionID", "Detail");
+                ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail");
+                ViewBag.IDStudent = new SelectList(db.Students, "StudentID", "Name");
+                return View("Create", "_Layout");
+
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         // POST: Exams/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize(Roles = "Admin, Staff, Student")]
         public ActionResult Create([Bind(Include = "ExamID,num,Path,Quotation,Story,IDStudent,IDCompetition,IDExhibition,Mark,IDAward,ChangeDescription,Status,MoneyReturn,Price,Improvement")] Exam exam)
         {
-            if (ModelState.IsValid)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff")  || User.IsInRole("Student"))
             {
-                db.Exams.Add(exam);
-                db.SaveChanges();
-                return Content("Create Succesfully");
+                if (ModelState.IsValid)
+                {
+                    db.Exams.Add(exam);
+                    db.SaveChanges();
+                    return Content("Create Succesfully");
+                }
+
+                ViewBag.IDAward = new SelectList(db.Awards, "AwardID", "CompetitionID", exam.IDAward);
+                ViewBag.IDCompetition = new SelectList(db.Competitions, "CompetitionID", "Detail", exam.IDCompetition);
+                ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail", exam.IDExhibition);
+                ViewBag.IDStudent = new SelectList(db.Students, "StudentID", "Name", exam.IDStudent);
+                return Content("Create Failed");
+
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
             }
 
-            ViewBag.IDAward = new SelectList(db.Awards, "AwardID", "CompetitionID", exam.IDAward);
-            ViewBag.IDCompetition = new SelectList(db.Competitions, "CompetitionID", "Detail", exam.IDCompetition);
-            ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail", exam.IDExhibition);
-            ViewBag.IDStudent = new SelectList(db.Students, "StudentID", "Name", exam.IDStudent);
-            return Content("Create Failed");
         }
 
         // GET: Exams/Edit/5
         public ActionResult Edit(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff")|| User.IsInRole("Student"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Exam exam = db.Exams.Find(id);
+                if (exam == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.IDAward = new SelectList(db.Awards, "AwardID", "CompetitionID", exam.IDAward);
+                ViewBag.IDCompetition = new SelectList(db.Competitions, "CompetitionID", "Detail", exam.IDCompetition);
+                ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail", exam.IDExhibition);
+                ViewBag.IDStudent = new SelectList(db.Students, "StudentID", "Name", exam.IDStudent);
+                return View("Edit", "_Layout", exam);
+
             }
-            Exam exam = db.Exams.Find(id);
-            if (exam == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Contact", "Home");
             }
-            ViewBag.IDAward = new SelectList(db.Awards, "AwardID", "CompetitionID", exam.IDAward);
-            ViewBag.IDCompetition = new SelectList(db.Competitions, "CompetitionID", "Detail", exam.IDCompetition);
-            ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail", exam.IDExhibition);
-            ViewBag.IDStudent = new SelectList(db.Students, "StudentID", "Name", exam.IDStudent);
-            return View("Edit", "_Layout",exam);
+
         }
 
         // POST: Exams/Edit/5
@@ -94,32 +137,49 @@ namespace MainProjectNew.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ExamID,num,Path,Quotation,Story,IDStudent,IDCompetition,IDExhibition,Mark,IDAward,ChangeDescription,Status,MoneyReturn,Price,Improvement")] Exam exam)
         {
-            if (ModelState.IsValid)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Student"))
             {
-                db.Entry(exam).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(exam).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.IDAward = new SelectList(db.Awards, "AwardID", "CompetitionID", exam.IDAward);
+                ViewBag.IDCompetition = new SelectList(db.Competitions, "CompetitionID", "Detail", exam.IDCompetition);
+                ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail", exam.IDExhibition);
+                ViewBag.IDStudent = new SelectList(db.Students, "StudentID", "Name", exam.IDStudent);
+                return View("Edit", "_Layout", exam);
+
             }
-            ViewBag.IDAward = new SelectList(db.Awards, "AwardID", "CompetitionID", exam.IDAward);
-            ViewBag.IDCompetition = new SelectList(db.Competitions, "CompetitionID", "Detail", exam.IDCompetition);
-            ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail", exam.IDExhibition);
-            ViewBag.IDStudent = new SelectList(db.Students, "StudentID", "Name", exam.IDStudent);
-            return View("Edit", "_Layout",exam);
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
         }
 
         // GET: Exams/Delete/5
         public ActionResult Delete(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff")|| User.IsInRole("Student"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Exam exam = db.Exams.Find(id);
+                if (exam == null)
+                {
+                    return HttpNotFound();
+                }
+                return View("Delete", "_Layout", exam);
+
             }
-            Exam exam = db.Exams.Find(id);
-            if (exam == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Contact", "Home");
             }
-            return View("Delete", "_Layout",exam);
+
         }
 
         // POST: Exams/Delete/5
@@ -127,10 +187,19 @@ namespace MainProjectNew.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Exam exam = db.Exams.Find(id);
-            db.Exams.Remove(exam);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") )
+            {
+                Exam exam = db.Exams.Find(id);
+                db.Exams.Remove(exam);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
 
