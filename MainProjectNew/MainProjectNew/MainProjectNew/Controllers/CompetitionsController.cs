@@ -13,14 +13,14 @@ namespace MainProjectNew.Controllers
     public class CompetitionsController : Controller
     {
         private ModelMain db = new ModelMain();
-
+        [Authorize(Roles = "Admin, Staff, Manager")]
         // GET: Competitions
         public ActionResult Index()
         {
             var competitions = db.Competitions.Include(c => c.Award);
             return View("Index", "_Layout",competitions.ToList());
         }
-
+        [Authorize(Roles = "Admin, Staff, Manager")]
         // GET: Competitions/Details/5
         public ActionResult Details(string id)
         {
@@ -37,6 +37,7 @@ namespace MainProjectNew.Controllers
         }
 
         // GET: Competitions/Create
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Create()
         {
             ViewBag.AwardID = new SelectList(db.Awards, "AwardID", "CompetitionID");
@@ -48,6 +49,7 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Create([Bind(Include = "CompetitionID,num,Detail,StartDate,EndDate,Condition,AwardID")] Competition competition)
         {
             if (ModelState.IsValid)
@@ -62,6 +64,7 @@ namespace MainProjectNew.Controllers
         }
 
         // GET: Competitions/Edit/5
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -82,6 +85,7 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Edit([Bind(Include = "CompetitionID,num,Detail,StartDate,EndDate,Condition,AwardID")] Competition competition)
         {
             if (ModelState.IsValid)
@@ -95,6 +99,7 @@ namespace MainProjectNew.Controllers
         }
 
         // GET: Competitions/Delete/5
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -112,6 +117,7 @@ namespace MainProjectNew.Controllers
         // POST: Competitions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult DeleteConfirmed(string id)
         {
             Competition competition = db.Competitions.Find(id);
