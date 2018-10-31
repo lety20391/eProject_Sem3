@@ -15,33 +15,56 @@ namespace MainProjectNew.Controllers
         private ModelMain db = new ModelMain();
 
         // GET: Users
-        [Authorize(Roles = "Admin,Staff,Manager")]
         public ActionResult Index()
         {
-            return View("Index", "_Layout",db.Users.ToList());
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Manager"))
+            {
+                return View("Index", "_Layout", db.Users.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         // GET: Users/Details/5
-        [Authorize(Roles = "Admin,Staff,Manager")]
         public ActionResult Details(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Manager") )
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                User user = db.Users.Find(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                return View("Details", "_Layout", user);
+
             }
-            User user = db.Users.Find(id);
-            if (user == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Contact", "Home");
             }
-            return View("Details", "_Layout",user);
+
         }
-        [Authorize(Roles = "Admin,Staff")]
 
         // GET: Users/Create
         public ActionResult Create()
         {
-            return View("Create", "_Layout");
+            if (User.IsInRole("Admin"))
+            {
+                return View("Create", "_Layout");
+
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         // POST: Users/Create
@@ -49,33 +72,49 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Create([Bind(Include = "IDUser,num,UserNick,UserPass,Real_ID,Role,Status")] User user)
         {
-            if (ModelState.IsValid)
+            if (User.IsInRole("Admin"))
             {
-                db.Users.Add(user);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                return View("Create", "_Layout", user);
+
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
             }
 
-            return View("Create" , "_Layout",user);
         }
 
         // GET: Users/Edit/5
-        [Authorize(Roles = "Admin,Staff")]
         public ActionResult Edit(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                User user = db.Users.Find(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                return View("Edit", "_Layout", user);
+
             }
-            User user = db.Users.Find(id);
-            if (user == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Contact", "Home");
             }
-            return View("Edit", "_Layout",user);
+
         }
 
         // POST: Users/Edit/5
@@ -83,44 +122,68 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,Staff")]
         public ActionResult Edit([Bind(Include = "IDUser,num,UserNick,UserPass,Real_ID,Role,Status")] User user)
         {
-            if (ModelState.IsValid)
+            if (User.IsInRole("Admin"))
             {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(user).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View("Edit", "_Layout", user);
+
             }
-            return View("Edit", "_Layout",user);
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         // GET: Users/Delete/5
-        [Authorize(Roles = "Admin,Staff")]
         public ActionResult Delete(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                User user = db.Users.Find(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+                return View("Delete", "_Layout", user);
+
             }
-            User user = db.Users.Find(id);
-            if (user == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Contact", "Home");
             }
-            return View("Delete", "_Layout",user);
+
         }
 
         // POST: Users/Delete/5
-        [Authorize(Roles = "Admin,Staff")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (User.IsInRole("Admin"))
+            {
+                User user = db.Users.Find(id);
+                db.Users.Remove(user);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         protected override void Dispose(bool disposing)
