@@ -13,35 +13,59 @@ namespace MainProjectNew.Controllers
     public class CompetitionsController : Controller
     {
         private ModelMain db = new ModelMain();
-        [Authorize(Roles = "Admin, Staff, Manager")]
         // GET: Competitions
         public ActionResult Index()
         {
-            var competitions = db.Competitions.Include(c => c.Award);
-            return View("Index", "_Layout",competitions.ToList());
+            if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Staff") )
+            {
+                var competitions = db.Competitions.Include(c => c.Award);
+                return View("Index", "_Layout", competitions.ToList());
+
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
-        [Authorize(Roles = "Admin, Staff, Manager")]
         // GET: Competitions/Details/5
         public ActionResult Details(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Staff"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Competition competition = db.Competitions.Find(id);
+                if (competition == null)
+                {
+                    return HttpNotFound();
+                }
+                return View("Details", "_Layout", competition);
             }
-            Competition competition = db.Competitions.Find(id);
-            if (competition == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Contact", "Home");
             }
-            return View("Details", "_Layout",competition);
+
+            
         }
 
         // GET: Competitions/Create
-        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Create()
         {
-            ViewBag.AwardID = new SelectList(db.Awards, "AwardID", "CompetitionID");
-            return View("Create", "_Layout");
+            if (User.IsInRole("Admin")|| User.IsInRole("Staff") )
+            {
+                ViewBag.AwardID = new SelectList(db.Awards, "AwardID", "CompetitionID");
+                return View("Create", "_Layout");
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
+
         }
 
         // POST: Competitions/Create
@@ -49,35 +73,51 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Create([Bind(Include = "CompetitionID,num,Detail,StartDate,EndDate,Condition,AwardID")] Competition competition)
         {
-            if (ModelState.IsValid)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff"))
             {
-                db.Competitions.Add(competition);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Competitions.Add(competition);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                ViewBag.AwardID = new SelectList(db.Awards, "AwardID", "CompetitionID", competition.AwardID);
+                return View("Create", "_Layout", competition);
+
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
             }
 
-            ViewBag.AwardID = new SelectList(db.Awards, "AwardID", "CompetitionID", competition.AwardID);
-            return View("Create", "_Layout",competition);
         }
 
         // GET: Competitions/Edit/5
-        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Edit(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Competition competition = db.Competitions.Find(id);
+                if (competition == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.AwardID = new SelectList(db.Awards, "AwardID", "CompetitionID", competition.AwardID);
+                return View("Edit", "_Layout", competition);
+
             }
-            Competition competition = db.Competitions.Find(id);
-            if (competition == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Contact", "Home");
             }
-            ViewBag.AwardID = new SelectList(db.Awards, "AwardID", "CompetitionID", competition.AwardID);
-            return View("Edit", "_Layout",competition);
+
         }
 
         // POST: Competitions/Edit/5
@@ -85,45 +125,69 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Edit([Bind(Include = "CompetitionID,num,Detail,StartDate,EndDate,Condition,AwardID")] Competition competition)
         {
-            if (ModelState.IsValid)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff"))
             {
-                db.Entry(competition).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(competition).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.AwardID = new SelectList(db.Awards, "AwardID", "CompetitionID", competition.AwardID);
+                return View("Edit", "_Layout", competition);
+
             }
-            ViewBag.AwardID = new SelectList(db.Awards, "AwardID", "CompetitionID", competition.AwardID);
-            return View("Edit", "_Layout",competition);
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         // GET: Competitions/Delete/5
-        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Delete(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Competition competition = db.Competitions.Find(id);
+                if (competition == null)
+                {
+                    return HttpNotFound();
+                }
+                return View("Delete", "_Layout", competition);
+
             }
-            Competition competition = db.Competitions.Find(id);
-            if (competition == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Contact", "Home");
             }
-            return View("Delete", "_Layout",competition);
+
         }
 
         // POST: Competitions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Staff")]
         public ActionResult DeleteConfirmed(string id)
         {
-            Competition competition = db.Competitions.Find(id);
-            db.Competitions.Remove(competition);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+            {
+                Competition competition = db.Competitions.Find(id);
+                db.Competitions.Remove(competition);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         protected override void Dispose(bool disposing)
