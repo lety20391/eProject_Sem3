@@ -18,33 +18,57 @@ namespace MainProjectNew.Controllers
         [Authorize(Roles = "Admin, Staff, Manager")]
         public ActionResult Index()
         {
-            var customers = db.Customers.Include(c => c.Exam).Include(c => c.Exhibition);
-            return View("Index", "_Layout",customers.ToList());
+            if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Staff"))
+            {
+                var customers = db.Customers.Include(c => c.Exam).Include(c => c.Exhibition);
+                return View("Index", "_Layout", customers.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         // GET: Customers/Details/5
-        [Authorize(Roles = "Admin, Staff, Manager")]
         public ActionResult Details(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Staff") )
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Customer customer = db.Customers.Find(id);
+                if (customer == null)
+                {
+                    return HttpNotFound();
+                }
+                return View("Details", "_Layout", customer);
+
             }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Contact", "Home");
             }
-            return View("Details", "_Layout",customer);
+
         }
 
         // GET: Customers/Create
-        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Create()
         {
-            ViewBag.IDExam = new SelectList(db.Exams, "ExamID", "Path");
-            ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail");
-            return View("Create", "_Layout");
+            if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+            {
+                ViewBag.IDExam = new SelectList(db.Exams, "ExamID", "Path");
+                ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail");
+                return View("Create", "_Layout");
+
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         // POST: Customers/Create
@@ -52,37 +76,53 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Create([Bind(Include = "CustomerID,num,Name,Gender,Phone,Address,IDExhibition,IDExam")] Customer customer)
         {
-            if (ModelState.IsValid)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") )
             {
-                db.Customers.Add(customer);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Customers.Add(customer);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                ViewBag.IDExam = new SelectList(db.Exams, "ExamID", "Path", customer.IDExam);
+                ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail", customer.IDExhibition);
+                return View("Create", "_Layout", customer);
+
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
             }
 
-            ViewBag.IDExam = new SelectList(db.Exams, "ExamID", "Path", customer.IDExam);
-            ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail", customer.IDExhibition);
-            return View("Create", "_Layout",customer);
         }
 
         // GET: Customers/Edit/5
-        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Edit(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") )
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Customer customer = db.Customers.Find(id);
+                if (customer == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.IDExam = new SelectList(db.Exams, "ExamID", "Path", customer.IDExam);
+                ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail", customer.IDExhibition);
+                return View("Edit", "_Layout", customer);
+
             }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Contact", "Home");
             }
-            ViewBag.IDExam = new SelectList(db.Exams, "ExamID", "Path", customer.IDExam);
-            ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail", customer.IDExhibition);
-            return View("Edit", "_Layout",customer);
+
         }
 
         // POST: Customers/Edit/5
@@ -90,46 +130,69 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Edit([Bind(Include = "CustomerID,num,Name,Gender,Phone,Address,IDExhibition,IDExam")] Customer customer)
         {
-            if (ModelState.IsValid)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") )
             {
-                db.Entry(customer).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(customer).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.IDExam = new SelectList(db.Exams, "ExamID", "Path", customer.IDExam);
+                ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail", customer.IDExhibition);
+                return View("Edit", "_Layout", customer);
             }
-            ViewBag.IDExam = new SelectList(db.Exams, "ExamID", "Path", customer.IDExam);
-            ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail", customer.IDExhibition);
-            return View("Edit", "_Layout",customer);
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         // GET: Customers/Delete/5
-        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Delete(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") )
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Customer customer = db.Customers.Find(id);
+                if (customer == null)
+                {
+                    return HttpNotFound();
+                }
+                return View("Delete", "_Layout", customer);
+
             }
-            Customer customer = db.Customers.Find(id);
-            if (customer == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Contact", "Home");
             }
-            return View("Delete", "_Layout",customer);
+
         }
 
         // POST: Customers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Staff")]
         public ActionResult DeleteConfirmed(string id)
         {
-            Customer customer = db.Customers.Find(id);
-            db.Customers.Remove(customer);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+            {
+                Customer customer = db.Customers.Find(id);
+                db.Customers.Remove(customer);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         protected override void Dispose(bool disposing)
