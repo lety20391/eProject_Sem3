@@ -13,13 +13,13 @@ namespace MainProjectNew.Controllers
     public class ClassesController : Controller
     {
         private ModelMain db = new ModelMain();
-
+        [Authorize(Roles = "Admin, Staff, Manager")]
         // GET: Classes
         public ActionResult Index()
         {
             return View("Index", "_Layout",db.Classes.ToList());
         }
-
+        [Authorize(Roles = "Admin, Staff, Manager")]
         // GET: Classes/Details/5
         public ActionResult Details(string id)
         {
@@ -34,7 +34,7 @@ namespace MainProjectNew.Controllers
             }
             return View("Details", "_Layout",@class);
         }
-
+        [Authorize(Roles = "Admin, Staff")]
         // GET: Classes/Create
         public ActionResult Create()
         {
@@ -46,6 +46,7 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Create([Bind(Include = "ClassID,num,ClassName")] Class @class)
         {
             if (ModelState.IsValid)
@@ -57,7 +58,7 @@ namespace MainProjectNew.Controllers
 
             return View("Create", "_Layout",@class);
         }
-
+        [Authorize(Roles = "Admin, Staff")]
         // GET: Classes/Edit/5
         public ActionResult Edit(string id)
         {
@@ -78,6 +79,7 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Edit([Bind(Include = "ClassID,num,ClassName")] Class @class)
         {
             if (ModelState.IsValid)
@@ -90,6 +92,7 @@ namespace MainProjectNew.Controllers
         }
 
         // GET: Classes/Delete/5
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -107,6 +110,7 @@ namespace MainProjectNew.Controllers
         // POST: Classes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult DeleteConfirmed(string id)
         {
             Class @class = db.Classes.Find(id);
