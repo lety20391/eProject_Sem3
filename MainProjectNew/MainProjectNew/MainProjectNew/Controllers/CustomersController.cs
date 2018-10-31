@@ -15,7 +15,6 @@ namespace MainProjectNew.Controllers
         private ModelMain db = new ModelMain();
 
         // GET: Customers
-        [Authorize(Roles = "Admin, Staff, Manager")]
         public ActionResult Index()
         {
             if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Staff"))
