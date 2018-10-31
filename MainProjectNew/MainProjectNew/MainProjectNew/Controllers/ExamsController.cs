@@ -282,6 +282,63 @@ namespace MainProjectNew.Controllers
             }
         }
 
+        //danh cho student Submit
+
+        public ActionResult studentSubmit(string id)
+        {
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Student"))
+            {
+                
+                List<Competition> searchComp = db.Competitions.Where(item => item.CompetitionID.Equals(id)).ToList();
+
+                string studID = db.Users.Where(item => item.UserNick.Equals(User.Identity.Name)).Select(item => item.Real_ID).First();
+                List<Student> searchStud = db.Students.Where(item => item.StudentID.Equals(studID)).ToList();
+
+                System.Diagnostics.Debug.WriteLine(studID);
+                System.Diagnostics.Debug.WriteLine(User.Identity.Name);
+
+                ViewBag.IDAward = new SelectList(db.Awards, "AwardID", "CompetitionID");
+                ViewBag.IDCompetition = new SelectList(searchComp, "CompetitionID", "Detail");
+                ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail");
+                ViewBag.IDStudent = new SelectList(searchStud, "StudentID", "Name");
+                return View("studentSubmit", "_Layout");
+
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
+        }
+
+
+        [HttpPost]
+        public ActionResult studentSubmit([Bind(Include = "ExamID,num,Path,Quotation,Story,IDStudent,IDCompetition,IDExhibition,Mark,IDAward,ChangeDescription,Status,MoneyReturn,Price,Improvement")] Exam exam)
+        {
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Student"))
+            {
+                if (ModelState.IsValid)
+                {
+                    db.Exams.Add(exam);
+                    db.SaveChanges();
+                    return Content("Create Succesfully");
+                }
+
+                ViewBag.IDAward = new SelectList(db.Awards, "AwardID", "CompetitionID", exam.IDAward);
+                ViewBag.IDCompetition = new SelectList(db.Competitions, "CompetitionID", "Detail", exam.IDCompetition);
+                ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail", exam.IDExhibition);
+                ViewBag.IDStudent = new SelectList(db.Students, "StudentID", "Name", exam.IDStudent);
+                return Content("Create Failed");
+
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
+        }
+
+        //danh cho student Submit
 
         protected override void Dispose(bool disposing)
         {

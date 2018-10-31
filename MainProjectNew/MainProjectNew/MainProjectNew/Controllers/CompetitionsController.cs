@@ -198,5 +198,11 @@ namespace MainProjectNew.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult forStudent()
+        {
+            var competitions = db.Competitions.Include(c => c.Award);
+            return View("forStudent", "_Layout", competitions.ToList());
+        }
     }
 }

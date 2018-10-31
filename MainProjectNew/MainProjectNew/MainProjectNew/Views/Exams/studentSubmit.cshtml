@@ -1,0 +1,224 @@
+﻿@model MainProjectNew.Models.Exam
+
+@{
+    ViewBag.Title = "studentSubmit";
+}
+
+<h2>studentSubmit</h2>
+
+<img id="imagePreview" width="100" />
+@using (Html.BeginForm("Upload", "Exams", FormMethod.Post, new { enctype = "multipart/form-data", @id = "formImg" }))
+{
+    @Html.TextBox("ImageFile", null, new { type = "file", accept = "image/*" })<br />
+
+}
+
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "formData" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Exam</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(item => item.Path)
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.Path, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Path, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Path, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Quotation, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Quotation, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Quotation, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Story, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Story, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Story, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IDStudent, "IDStudent", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("IDStudent", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IDStudent, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.IDCompetition, "IDCompetition", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("IDCompetition", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.IDCompetition, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.HiddenFor(model => model.IDExhibition)
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.IDExhibition, "IDExhibition", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("IDExhibition", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IDExhibition, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        @Html.HiddenFor(model => model.Mark)
+
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Mark, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Mark, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Mark, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        @Html.HiddenFor(model => model.IDAward)
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.IDAward, "IDAward", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("IDAward", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.IDAward, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ChangeDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ChangeDescription, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ChangeDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @Html.HiddenFor(model => model.Status)
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Status)
+                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>*@
+
+        @Html.HiddenFor(model => model.MoneyReturn)
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.MoneyReturn, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.MoneyReturn)
+                        @Html.ValidationMessageFor(model => model.MoneyReturn, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @Html.HiddenFor(model => model.Improvement)
+        @*<div class="form-group">
+                @Html.LabelFor(model => model.Improvement, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Improvement)
+                        @Html.ValidationMessageFor(model => model.Improvement, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>*@
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@*preview image before upload*@
+<script>
+    document.getElementById("ImageFile").onchange = function () {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            // get loaded data and render thumbnail.
+            if ($("#ImageFile")[0].files[0].size / 1024 / 1024 > 2) {
+                alert("File Size must be Smaller than 2MB");
+                $("#ImageFile").val("");
+            } else {
+                document.getElementById("imagePreview").src = e.target.result;
+            }
+        };
+
+        // read the image file as a data URL.
+        reader.readAsDataURL(this.files[0]);
+    };
+</script>
+@*preview image before upload*@
+
+<script>
+    function sendData() {
+
+        //upload image first
+        //prepare image data
+            url = "/Exams/Upload";
+            var formData = new FormData();
+            formData.append("file", $("#ImageFile")[0].files[0]);
+            //post image data to server
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: formData,
+                success: function (result) {
+                    console.log(result);
+                    if (result == "Upload Successed") {
+
+                        $("#Path").val($("#ImageFile")[0].files[0].name);
+                        sendFormData();
+                    } else {
+                        alert(result);
+                    }
+                },
+                processData: false,
+                contentType: false,
+                error: function () {
+                    alert("Upload Image Failed!");
+                }
+            });
+    }
+
+    function sendFormData()
+    {
+        url = "/Exams/Create"
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: $("#formData").serialize(),
+            success: function (result) {
+                if (result == "Create Succesfully") {
+                    alert("Submit succesfully");
+                } else {
+                    alert("Try upload again");
+                }
+
+            },
+        });
+    }
+</script>
