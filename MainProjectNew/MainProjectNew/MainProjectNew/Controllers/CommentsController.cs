@@ -15,33 +15,56 @@ namespace MainProjectNew.Controllers
         private ModelMain db = new ModelMain();
 
         // GET: Comments
-        [Authorize(Roles = "Admin, Staff, Manager,Student")]
         public ActionResult Index()
         {
-            var comments = db.Comments.Include(c => c.User);
-            return View("Index", "_Layout", comments.ToList());
+            if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Staff") || User.IsInRole("Student"))
+            {
+                var comments = db.Comments.Include(c => c.User);
+                return View("Index", "_Layout", comments.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
+
         }
-        [Authorize(Roles = "Admin, Staff, Manager,Student")]
         // GET: Comments/Details/5
         public ActionResult Details(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Staff") || User.IsInRole("Student"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Comment comment = db.Comments.Find(id);
+                if (comment == null)
+                {
+                    return HttpNotFound();
+                }
+                return View("Details", "_Layout", comment);
             }
-            Comment comment = db.Comments.Find(id);
-            if (comment == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Contact", "Home");
             }
-            return View("Details", "_Layout",comment);
+
         }
-        [Authorize(Roles = "Admin, Staff, Student")]
         // GET: Comments/Create
         public ActionResult Create()
         {
-            ViewBag.UserID = new SelectList(db.Users, "IDUser", "UserNick");
-            return View("Create", "_Layout");
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Student"))
+            {
+                ViewBag.UserID = new SelectList(db.Users, "IDUser", "UserNick");
+                return View("Create", "_Layout");
+
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         // POST: Comments/Create
@@ -49,35 +72,50 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Staff, Student")]
         public ActionResult Create([Bind(Include = "CommentID,num,Detail,UserID,MainID,Status")] Comment comment)
         {
-            if (ModelState.IsValid)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Student"))
             {
-                db.Comments.Add(comment);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Comments.Add(comment);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                ViewBag.UserID = new SelectList(db.Users, "IDUser", "UserNick", comment.UserID);
+                return View("Create", "_Layout", comment);
+
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
             }
 
-            ViewBag.UserID = new SelectList(db.Users, "IDUser", "UserNick", comment.UserID);
-            return View("Create", "_Layout",comment);
         }
 
         // GET: Comments/Edit/5
-        [Authorize(Roles = "Admin, Staff, Student")]
         public ActionResult Edit(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Student"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Comment comment = db.Comments.Find(id);
+                if (comment == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.UserID = new SelectList(db.Users, "IDUser", "UserNick", comment.UserID);
+                return View("Edit", "_Layout", comment);
             }
-            Comment comment = db.Comments.Find(id);
-            if (comment == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Contact", "Home");
             }
-            ViewBag.UserID = new SelectList(db.Users, "IDUser", "UserNick", comment.UserID);
-            return View("Edit", "_Layout",comment);
+
         }
 
         // POST: Comments/Edit/5
@@ -85,45 +123,69 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Staff, Student")]
         public ActionResult Edit([Bind(Include = "CommentID,num,Detail,UserID,MainID,Status")] Comment comment)
         {
-            if (ModelState.IsValid)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Student"))
             {
-                db.Entry(comment).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(comment).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.UserID = new SelectList(db.Users, "IDUser", "UserNick", comment.UserID);
+                return View("Edit", "_Layout", comment);
+
             }
-            ViewBag.UserID = new SelectList(db.Users, "IDUser", "UserNick", comment.UserID);
-            return View("Edit", "_Layout",comment);
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         // GET: Comments/Delete/5
-        [Authorize(Roles = "Admin, Staff, Student")]
         public ActionResult Delete(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Student"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Comment comment = db.Comments.Find(id);
+                if (comment == null)
+                {
+                    return HttpNotFound();
+                }
+                return View("Delete", "_Layout", comment);
             }
-            Comment comment = db.Comments.Find(id);
-            if (comment == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Contact", "Home");
             }
-            return View("Delete", "_Layout",comment);
+
         }
 
         // POST: Comments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Staff, Student")]
         public ActionResult DeleteConfirmed(string id)
         {
-            Comment comment = db.Comments.Find(id);
-            db.Comments.Remove(comment);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Student"))
+            {
+                Comment comment = db.Comments.Find(id);
+                db.Comments.Remove(comment);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         protected override void Dispose(bool disposing)
