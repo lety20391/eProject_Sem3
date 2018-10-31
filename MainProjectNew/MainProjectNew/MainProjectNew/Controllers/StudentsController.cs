@@ -17,30 +17,56 @@ namespace MainProjectNew.Controllers
         // GET: Students
         public ActionResult Index()
         {
-            var students = db.Students.Include(s => s.Class);
-            return View("Index", "_Layout",students.ToList());
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Manager") )
+            {
+                var students = db.Students.Include(s => s.Class);
+                return View("Index", "_Layout", students.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         // GET: Students/Details/5
         public ActionResult Details(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Manager") )
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Student student = db.Students.Find(id);
+                if (student == null)
+                {
+                    return HttpNotFound();
+                }
+                return View("Details", "_Layout", student);
+
             }
-            Student student = db.Students.Find(id);
-            if (student == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Contact", "Home");
             }
-            return View("Details" , "_Layout",student);
+
         }
 
         // GET: Students/Create
         public ActionResult Create()
         {
-            ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName");
-            return View("Create", "_Layout");
+            if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+            {
+                ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName");
+                return View("Create", "_Layout");
+
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         // POST: Students/Create
@@ -50,31 +76,49 @@ namespace MainProjectNew.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "StudentID,num,Name,Gender,DOB,Phone,Address,ClassID,Admission,Status")] Student student)
         {
-            if (ModelState.IsValid)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff"))
             {
-                db.Students.Add(student);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Students.Add(student);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName", student.ClassID);
+                return View("Create", "_Layout", student);
+
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
             }
 
-            ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName", student.ClassID);
-            return View("Create", "_Layout",student);
         }
 
         // GET: Students/Edit/5
         public ActionResult Edit(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Student student = db.Students.Find(id);
+                if (student == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName", student.ClassID);
+                return View("Edit", "_Layout", student);
+
             }
-            Student student = db.Students.Find(id);
-            if (student == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Contact", "Home");
             }
-            ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName", student.ClassID);
-            return View("Edit", "_Layout",student);
+
         }
 
         // POST: Students/Edit/5
@@ -84,29 +128,47 @@ namespace MainProjectNew.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "StudentID,num,Name,Gender,DOB,Phone,Address,ClassID,Admission,Status")] Student student)
         {
-            if (ModelState.IsValid)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff"))
             {
-                db.Entry(student).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(student).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName", student.ClassID);
+                return View("Edit", "_Layout", student);
+
             }
-            ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName", student.ClassID);
-            return View("Edit", "_Layout",student);
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         // GET: Students/Delete/5
         public ActionResult Delete(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Student student = db.Students.Find(id);
+                if (student == null)
+                {
+                    return HttpNotFound();
+                }
+                return View("Delete", "_Layout", student);
+
             }
-            Student student = db.Students.Find(id);
-            if (student == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Contact", "Home");
             }
-            return View("Delete" , "_Layout",student);
+
         }
 
         // POST: Students/Delete/5
@@ -114,10 +176,19 @@ namespace MainProjectNew.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Student student = db.Students.Find(id);
-            db.Students.Remove(student);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+            {
+                Student student = db.Students.Find(id);
+                db.Students.Remove(student);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         protected override void Dispose(bool disposing)
