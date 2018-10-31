@@ -17,26 +17,38 @@ namespace MainProjectNew.Models
         [StringLength(25)]
         public string StaffID { get; set; }
 
-        [Required]
-        [StringLength(50)]
+        
+        [Required(ErrorMessage = "Name cannot be blank")]
+        [Display(Name = "Name")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Name max 50 characters")]
         public string Name { get; set; }
 
         public bool Gender { get; set; }
 
         [Column(TypeName = "date")]
+        [DataType(DataType.DateTime)]
         public DateTime? DOB { get; set; }
 
-        [Required]
-        [StringLength(11)]
+        [Required(ErrorMessage = "Phone cannot be blank")]
+        [Display(Name = "Phone")]
+        [StringLength(11, MinimumLength = 10, ErrorMessage = "Phone No. 10 - 11 characters")]
+        [RegularExpression("^[0-9]{9,11}$", ErrorMessage = "Only Number")]
         public string Phone { get; set; }
 
-        [StringLength(50)]
+        [Required(ErrorMessage = "Address cannot be blank")]
+        [Display(Name = "Address")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Address max 50 characters")]
         public string Address { get; set; }
 
-        [StringLength(25)]
+        
+        [Display(Name = "Class")]
+        [StringLength(25, MinimumLength = 3, ErrorMessage = "Class max 25 characters")]
         public string ClassID { get; set; }
 
-        [StringLength(50)]
+
+        
+        [Display(Name = "Subject")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Subject max 50 characters")]
         public string Subject { get; set; }
 
         public bool Status { get; set; }
