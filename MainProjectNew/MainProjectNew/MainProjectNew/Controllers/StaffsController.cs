@@ -15,12 +15,13 @@ namespace MainProjectNew.Controllers
         private ModelMain db = new ModelMain();
 
         // GET: Staffs
+        [Authorize(Roles = "Admin, Staff, Manager")]
         public ActionResult Index()
         {
             var staffs = db.Staffs.Include(s => s.Class);
             return View("Index", "_Layout",staffs.ToList());
         }
-
+        [Authorize(Roles = "Admin, Staff, Manager")]
         // GET: Staffs/Details/5
         public ActionResult Details(string id)
         {
@@ -35,7 +36,7 @@ namespace MainProjectNew.Controllers
             }
             return View("Details", "_Layout",staff);
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: Staffs/Create
         public ActionResult Create()
         {
@@ -48,6 +49,7 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create([Bind(Include = "StaffID,num,Name,Gender,DOB,Phone,Address,ClassID,Subject,Status")] Staff staff)
         {
             if (ModelState.IsValid)
@@ -62,6 +64,7 @@ namespace MainProjectNew.Controllers
         }
 
         // GET: Staffs/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -78,10 +81,12 @@ namespace MainProjectNew.Controllers
         }
 
         // POST: Staffs/Edit/5
+
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "StaffID,num,Name,Gender,DOB,Phone,Address,ClassID,Subject,Status")] Staff staff)
         {
             if (ModelState.IsValid)
@@ -95,6 +100,7 @@ namespace MainProjectNew.Controllers
         }
 
         // GET: Staffs/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -112,6 +118,7 @@ namespace MainProjectNew.Controllers
         // POST: Staffs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirmed(string id)
         {
             Staff staff = db.Staffs.Find(id);
