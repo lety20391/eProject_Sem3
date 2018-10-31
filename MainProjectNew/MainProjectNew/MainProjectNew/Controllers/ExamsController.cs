@@ -16,7 +16,6 @@ namespace MainProjectNew.Controllers
         private ModelMain db = new ModelMain();
 
         // GET: Exams
-        [Authorize(Roles = "Admin, Staff, Manager,Student")]
         public ActionResult Index()
         {
             var exams = db.Exams.Include(e => e.Award).Include(e => e.Competition).Include(e => e.Exhibition).Include(e => e.Student);
@@ -24,7 +23,6 @@ namespace MainProjectNew.Controllers
         }
 
         // GET: Exams/Details/5
-        [Authorize(Roles = "Admin, Staff, Manager,Student")]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -40,7 +38,6 @@ namespace MainProjectNew.Controllers
         }
 
         // GET: Exams/Create
-        [Authorize(Roles = "Admin, Staff, Student")]
         public ActionResult Create()
         {
             ViewBag.IDAward = new SelectList(db.Awards, "AwardID", "CompetitionID");
@@ -54,12 +51,7 @@ namespace MainProjectNew.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-<<<<<<< HEAD
-        [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Staff, Student")]
-=======
         //[ValidateAntiForgeryToken]
->>>>>>> c2d728d39faf994246d7f5d989668751d93593cd
         public ActionResult Create([Bind(Include = "ExamID,num,Path,Quotation,Story,IDStudent,IDCompetition,IDExhibition,Mark,IDAward,ChangeDescription,Status,MoneyReturn,Price,Improvement")] Exam exam)
         {
             if (ModelState.IsValid)
@@ -76,7 +68,6 @@ namespace MainProjectNew.Controllers
             return Content("Create Failed");
         }
 
-        [Authorize(Roles = "Admin, Staff")]
         // GET: Exams/Edit/5
         public ActionResult Edit(string id)
         {
@@ -101,8 +92,6 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-
-        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Edit([Bind(Include = "ExamID,num,Path,Quotation,Story,IDStudent,IDCompetition,IDExhibition,Mark,IDAward,ChangeDescription,Status,MoneyReturn,Price,Improvement")] Exam exam)
         {
             if (ModelState.IsValid)
@@ -119,7 +108,6 @@ namespace MainProjectNew.Controllers
         }
 
         // GET: Exams/Delete/5
-        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -137,7 +125,6 @@ namespace MainProjectNew.Controllers
         // POST: Exams/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Staff")]
         public ActionResult DeleteConfirmed(string id)
         {
             Exam exam = db.Exams.Find(id);
