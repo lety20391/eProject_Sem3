@@ -15,6 +15,7 @@ namespace MainProjectNew.Controllers
         private ModelMain db = new ModelMain();
 
         // GET: Students
+        [Authorize(Roles = "Admin, Staff, Manager")]
         public ActionResult Index()
         {
             var students = db.Students.Include(s => s.Class);
@@ -22,6 +23,7 @@ namespace MainProjectNew.Controllers
         }
 
         // GET: Students/Details/5
+        [Authorize(Roles = "Admin, Staff, Manager")]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -37,6 +39,7 @@ namespace MainProjectNew.Controllers
         }
 
         // GET: Students/Create
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Create()
         {
             ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName");
@@ -48,6 +51,7 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Create([Bind(Include = "StudentID,num,Name,Gender,DOB,Phone,Address,ClassID,Admission,Status")] Student student)
         {
             if (ModelState.IsValid)
@@ -62,6 +66,7 @@ namespace MainProjectNew.Controllers
         }
 
         // GET: Students/Edit/5
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -82,6 +87,7 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Edit([Bind(Include = "StudentID,num,Name,Gender,DOB,Phone,Address,ClassID,Admission,Status")] Student student)
         {
             if (ModelState.IsValid)
@@ -95,6 +101,7 @@ namespace MainProjectNew.Controllers
         }
 
         // GET: Students/Delete/5
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -112,6 +119,7 @@ namespace MainProjectNew.Controllers
         // POST: Students/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult DeleteConfirmed(string id)
         {
             Student student = db.Students.Find(id);
