@@ -15,12 +15,13 @@ namespace MainProjectNew.Controllers
         private ModelMain db = new ModelMain();
 
         // GET: Comments
+        [Authorize(Roles = "Admin, Staff, Manager,Student")]
         public ActionResult Index()
         {
             var comments = db.Comments.Include(c => c.User);
             return View("Index", "_Layout", comments.ToList());
         }
-
+        [Authorize(Roles = "Admin, Staff, Manager,Student")]
         // GET: Comments/Details/5
         public ActionResult Details(string id)
         {
@@ -35,7 +36,7 @@ namespace MainProjectNew.Controllers
             }
             return View("Details", "_Layout",comment);
         }
-
+        [Authorize(Roles = "Admin, Staff, Student")]
         // GET: Comments/Create
         public ActionResult Create()
         {
@@ -48,6 +49,7 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Staff, Student")]
         public ActionResult Create([Bind(Include = "CommentID,num,Detail,UserID,MainID,Status")] Comment comment)
         {
             if (ModelState.IsValid)
@@ -62,6 +64,7 @@ namespace MainProjectNew.Controllers
         }
 
         // GET: Comments/Edit/5
+        [Authorize(Roles = "Admin, Staff, Student")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -82,6 +85,7 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Staff, Student")]
         public ActionResult Edit([Bind(Include = "CommentID,num,Detail,UserID,MainID,Status")] Comment comment)
         {
             if (ModelState.IsValid)
@@ -95,6 +99,7 @@ namespace MainProjectNew.Controllers
         }
 
         // GET: Comments/Delete/5
+        [Authorize(Roles = "Admin, Staff, Student")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -112,6 +117,7 @@ namespace MainProjectNew.Controllers
         // POST: Comments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Staff, Student")]
         public ActionResult DeleteConfirmed(string id)
         {
             Comment comment = db.Comments.Find(id);
