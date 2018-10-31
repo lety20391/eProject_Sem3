@@ -4,12 +4,22 @@
     ViewBag.Title = "Create";
 }
 
-<h2>Create</h2>
 
-@using (Html.BeginForm()) 
+
+<h2>Create</h2>
+<img id="imagePreview" width="100" />
+@using (Html.BeginForm("Upload", "Exams", FormMethod.Post, new { enctype = "multipart/form-data", @id = "formImg" }))
+{
+    @Html.TextBox("ImageFile", null, new { type = "file", accept = "image/*" })<br />
+
+    <input type="button" value="Upload" onclick="" />
+}
+
+
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Exam</h4>
         <hr />
@@ -135,3 +145,19 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@*preview image before upload*@
+<script>
+    document.getElementById("ImageFile").onchange = function () {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            // get loaded data and render thumbnail.
+            document.getElementById("imagePreview").src = e.target.result;
+        };
+
+        // read the image file as a data URL.
+        reader.readAsDataURL(this.files[0]);
+    };
+</script>
+@*preview image before upload*@

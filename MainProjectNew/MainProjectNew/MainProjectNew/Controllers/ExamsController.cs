@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -130,6 +131,44 @@ namespace MainProjectNew.Controllers
             db.Exams.Remove(exam);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public ActionResult Upload(HttpPostedFileBase ImageFile)
+        {
+            //check Empty File
+            if (ImageFile.ContentLength > 0)
+            {
+                //check image type
+                if (ImageFile.ContentType.ToLower() != "image/jpg" &&
+                    ImageFile.ContentType.ToLower() != "image/jpeg" &&
+                    ImageFile.ContentType.ToLower() != "image/pjpeg" &&
+                    ImageFile.ContentType.ToLower() != "image/gif" &&
+                    ImageFile.ContentType.ToLower() != "image/x-png" &&
+                    ImageFile.ContentType.ToLower() != "image/png")
+                {
+                    return Content("Please upload Image");
+                }
+                else
+                {
+
+                    string _filename = Path.GetFileName(ImageFile.FileName);
+                    string _path = Path.Combine(Server.MapPath("~/ExamImage/"), _filename);
+                    if (!System.IO.File.Exists(_path))
+                    {
+                        ImageFile.SaveAs(_path);
+                        return Content("Upload Successed");
+                    }
+                    else
+                    {
+                        return Content("File already exist");
+                    }
+                }
+            }
+            else
+            {
+                return Content("Empty File");
+            }
         }
 
         protected override void Dispose(bool disposing)
