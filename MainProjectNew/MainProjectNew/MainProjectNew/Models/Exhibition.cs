@@ -24,20 +24,30 @@ namespace MainProjectNew.Models
         [StringLength(30)]
         public string ExhibitionID { get; set; }
 
-        [Required]
-        [StringLength(200)]
+        
+        [Required(ErrorMessage = "Detail cannot be blank")]
+        [Display(Name = "Detail")]
+        [StringLength(200, MinimumLength = 3, ErrorMessage = "Input Detail")]
         public string Detail { get; set; }
 
-        [StringLength(50)]
+        [Required(ErrorMessage = "Country cannot be blank")]
+        [Display(Name = "Country")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Input Country")]
         public string Country { get; set; }
 
+        [DataType(DataType.DateTime)]
         public DateTime StartDate { get; set; }
 
+        [DataType(DataType.DateTime)]
         public DateTime EndDate { get; set; }
 
-        [StringLength(200)]
+        [Required(ErrorMessage = "Condition cannot be blank")]
+        [Display(Name = "Condition")]
+        [StringLength(200, MinimumLength = 3, ErrorMessage = "Input Condition")]
         public string Condition { get; set; }
 
+        [Required(ErrorMessage = "Input Amount of Photo")]
+        [Range(minimum:1, maximum:1000, ErrorMessage = "Amount between 1 - 1000")]
         public int Quantity { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

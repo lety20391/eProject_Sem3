@@ -15,14 +15,12 @@ namespace MainProjectNew.Controllers
         private ModelMain db = new ModelMain();
 
         // GET: Exhibitions
-        [Authorize(Roles = "Admin, Staff, Manager,Student")]
         public ActionResult Index()
         {
             return View("Index", "_Layout",db.Exhibitions.ToList());
         }
 
         // GET: Exhibitions/Details/5
-        [Authorize(Roles = "Admin, Staff, Manager,Student")]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -38,7 +36,6 @@ namespace MainProjectNew.Controllers
         }
 
         // GET: Exhibitions/Create
-        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Create()
         {
             return View("Create", "_Layout");
@@ -49,7 +46,6 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Create([Bind(Include = "ExhibitionID,num,Detail,Country,StartDate,EndDate,Condition,Quantity")] Exhibition exhibition)
         {
             if (ModelState.IsValid)
@@ -63,7 +59,6 @@ namespace MainProjectNew.Controllers
         }
 
         // GET: Exhibitions/Edit/5
-        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -83,7 +78,6 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Edit([Bind(Include = "ExhibitionID,num,Detail,Country,StartDate,EndDate,Condition,Quantity")] Exhibition exhibition)
         {
             if (ModelState.IsValid)
@@ -96,7 +90,6 @@ namespace MainProjectNew.Controllers
         }
 
         // GET: Exhibitions/Delete/5
-        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -114,7 +107,6 @@ namespace MainProjectNew.Controllers
         // POST: Exhibitions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin, Staff")]
         public ActionResult DeleteConfirmed(string id)
         {
             Exhibition exhibition = db.Exhibitions.Find(id);
