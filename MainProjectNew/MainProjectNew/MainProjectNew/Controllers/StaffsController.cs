@@ -17,30 +17,56 @@ namespace MainProjectNew.Controllers
         // GET: Staffs
         public ActionResult Index()
         {
-            var staffs = db.Staffs.Include(s => s.Class);
-            return View("Index", "_Layout",staffs.ToList());
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Manager"))
+            {
+                var staffs = db.Staffs.Include(s => s.Class);
+                return View("Index", "_Layout", staffs.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         // GET: Staffs/Details/5
         public ActionResult Details(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Manager"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Staff staff = db.Staffs.Find(id);
+                if (staff == null)
+                {
+                    return HttpNotFound();
+                }
+                return View("Details", "_Layout", staff);
+
             }
-            Staff staff = db.Staffs.Find(id);
-            if (staff == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Contact", "Home");
             }
-            return View("Details", "_Layout",staff);
+
         }
 
         // GET: Staffs/Create
         public ActionResult Create()
         {
-            ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName");
-            return View("Create", "_Layout");
+            if (User.IsInRole("Admin"))
+            {
+
+                ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName");
+                return View("Create", "_Layout");
+
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
         }
 
         // POST: Staffs/Create
@@ -50,31 +76,49 @@ namespace MainProjectNew.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "StaffID,num,Name,Gender,DOB,Phone,Address,ClassID,Subject,Status")] Staff staff)
         {
-            if (ModelState.IsValid)
+            if (User.IsInRole("Admin"))
             {
-                db.Staffs.Add(staff);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Staffs.Add(staff);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName", staff.ClassID);
+                return View("Create", "_Layout", staff);
+
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
             }
 
-            ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName", staff.ClassID);
-            return View("Create", "_Layout",staff);
         }
 
         // GET: Staffs/Edit/5
         public ActionResult Edit(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Staff staff = db.Staffs.Find(id);
+                if (staff == null)
+                {
+                    return HttpNotFound();
+                }
+                ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName", staff.ClassID);
+                return View("Edit", "_Layout", staff);
+
             }
-            Staff staff = db.Staffs.Find(id);
-            if (staff == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Contact", "Home");
             }
-            ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName", staff.ClassID);
-            return View("Edit", "_Layout",staff);
+
         }
 
         // POST: Staffs/Edit/5
@@ -84,29 +128,47 @@ namespace MainProjectNew.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "StaffID,num,Name,Gender,DOB,Phone,Address,ClassID,Subject,Status")] Staff staff)
         {
-            if (ModelState.IsValid)
+            if (User.IsInRole("Admin"))
             {
-                db.Entry(staff).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(staff).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName", staff.ClassID);
+                return View("Edit", "_Layout", staff);
+
             }
-            ViewBag.ClassID = new SelectList(db.Classes, "ClassID", "ClassName", staff.ClassID);
-            return View("Edit", "_Layout",staff);
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         // GET: Staffs/Delete/5
         public ActionResult Delete(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Staff staff = db.Staffs.Find(id);
+                if (staff == null)
+                {
+                    return HttpNotFound();
+                }
+                return View("Delete", "_Layout", staff);
+
             }
-            Staff staff = db.Staffs.Find(id);
-            if (staff == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Contact", "Home");
             }
-            return View("Delete", "_Layout",staff);
+
         }
 
         // POST: Staffs/Delete/5
@@ -114,10 +176,18 @@ namespace MainProjectNew.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Staff staff = db.Staffs.Find(id);
-            db.Staffs.Remove(staff);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (User.IsInRole("Admin"))
+            {
+                Staff staff = db.Staffs.Find(id);
+                db.Staffs.Remove(staff);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         protected override void Dispose(bool disposing)
