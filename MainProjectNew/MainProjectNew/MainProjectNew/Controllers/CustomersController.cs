@@ -15,6 +15,7 @@ namespace MainProjectNew.Controllers
         private ModelMain db = new ModelMain();
 
         // GET: Customers
+        [Authorize(Roles = "Admin, Staff, Manager")]
         public ActionResult Index()
         {
             var customers = db.Customers.Include(c => c.Exam).Include(c => c.Exhibition);
@@ -22,6 +23,7 @@ namespace MainProjectNew.Controllers
         }
 
         // GET: Customers/Details/5
+        [Authorize(Roles = "Admin, Staff, Manager")]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -37,6 +39,7 @@ namespace MainProjectNew.Controllers
         }
 
         // GET: Customers/Create
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Create()
         {
             ViewBag.IDExam = new SelectList(db.Exams, "ExamID", "Path");
@@ -49,6 +52,7 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Create([Bind(Include = "CustomerID,num,Name,Gender,Phone,Address,IDExhibition,IDExam")] Customer customer)
         {
             if (ModelState.IsValid)
@@ -64,6 +68,7 @@ namespace MainProjectNew.Controllers
         }
 
         // GET: Customers/Edit/5
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -85,6 +90,7 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Edit([Bind(Include = "CustomerID,num,Name,Gender,Phone,Address,IDExhibition,IDExam")] Customer customer)
         {
             if (ModelState.IsValid)
@@ -99,6 +105,7 @@ namespace MainProjectNew.Controllers
         }
 
         // GET: Customers/Delete/5
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -116,6 +123,7 @@ namespace MainProjectNew.Controllers
         // POST: Customers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, Staff")]
         public ActionResult DeleteConfirmed(string id)
         {
             Customer customer = db.Customers.Find(id);
