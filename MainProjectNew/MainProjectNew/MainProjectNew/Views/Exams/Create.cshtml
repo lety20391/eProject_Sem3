@@ -6,31 +6,32 @@
 
 
 
-<h2>Create</h2>
+<h2>Exam</h2>
+<hr/>
 <img id="imagePreview" width="100" />
 @using (Html.BeginForm("Upload", "Exams", FormMethod.Post, new { enctype = "multipart/form-data", @id = "formImg" }))
 {
     @Html.TextBox("ImageFile", null, new { type = "file", accept = "image/*" })<br />
-
-    <input type="button" value="Upload" onclick="" />
+    
 }
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Post, new { id="formData"}))
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Exam</h4>
-        <hr />
+        
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
+        @Html.HiddenFor(model => model.Path)
+
+        @*<div class="form-group">
             @Html.LabelFor(model => model.Path, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Path, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Path, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Quotation, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -136,7 +137,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="button" value="Create" class="btn btn-default" onclick="sendData()"/>
             </div>
         </div>
     </div>
@@ -153,7 +154,12 @@
 
         reader.onload = function (e) {
             // get loaded data and render thumbnail.
-            document.getElementById("imagePreview").src = e.target.result;
+            if ($("#ImageFile")[0].files[0].size / 1024 / 1024 > 2) {
+                alert("File Size must be Smaller than 2MB");
+                $("#ImageFile").val("");
+            } else {
+                document.getElementById("imagePreview").src = e.target.result;
+            }
         };
 
         // read the image file as a data URL.
@@ -161,3 +167,53 @@
     };
 </script>
 @*preview image before upload*@
+
+<script>
+    function sendData() {
+
+        //upload image first
+        //prepare image data
+            url = "/Exams/Upload";
+            var formData = new FormData();
+            formData.append("file", $("#ImageFile")[0].files[0]);
+            //post image data to server
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: formData,
+                success: function (result) {
+                    console.log(result);
+                    if (result == "Upload Successed") {
+
+                        $("#Path").val($("#ImageFile")[0].files[0].name);
+                        sendFormData();
+                    } else {
+                        alert(result);
+                    }
+                },
+                processData: false,
+                contentType: false,
+                error: function () {
+                    alert("Upload Image Failed!");
+                }
+            });
+    }
+
+    function sendFormData()
+    {
+        url = "/Exams/Create"
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: $("#formData").serialize(),
+            success: function (result) {
+                if (result == "Create Succesfully") {
+                    window.location.replace("/Exams/Index");
+                } else {
+                    alert("Try upload again");
+                }
+
+            },
+        });
+    }
+</script>

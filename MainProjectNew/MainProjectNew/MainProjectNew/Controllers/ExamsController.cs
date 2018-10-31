@@ -54,22 +54,26 @@ namespace MainProjectNew.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+<<<<<<< HEAD
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin, Staff, Student")]
+=======
+        //[ValidateAntiForgeryToken]
+>>>>>>> c2d728d39faf994246d7f5d989668751d93593cd
         public ActionResult Create([Bind(Include = "ExamID,num,Path,Quotation,Story,IDStudent,IDCompetition,IDExhibition,Mark,IDAward,ChangeDescription,Status,MoneyReturn,Price,Improvement")] Exam exam)
         {
             if (ModelState.IsValid)
             {
                 db.Exams.Add(exam);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return Content("Create Succesfully");
             }
 
             ViewBag.IDAward = new SelectList(db.Awards, "AwardID", "CompetitionID", exam.IDAward);
             ViewBag.IDCompetition = new SelectList(db.Competitions, "CompetitionID", "Detail", exam.IDCompetition);
             ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail", exam.IDExhibition);
             ViewBag.IDStudent = new SelectList(db.Students, "StudentID", "Name", exam.IDStudent);
-            return View("Create", "_Layout",exam);
+            return Content("Create Failed");
         }
 
         [Authorize(Roles = "Admin, Staff")]
@@ -142,11 +146,53 @@ namespace MainProjectNew.Controllers
             return RedirectToAction("Index");
         }
 
+
+        //[HttpPost]
+        //public ActionResult Upload(HttpPostedFileBase ImageFile)
+        //{
+        //    //check Empty File
+        //    if (ImageFile.ContentLength > 0)
+        //    {
+        //        //check image type
+        //        if (ImageFile.ContentType.ToLower() != "image/jpg" &&
+        //            ImageFile.ContentType.ToLower() != "image/jpeg" &&
+        //            ImageFile.ContentType.ToLower() != "image/pjpeg" &&
+        //            ImageFile.ContentType.ToLower() != "image/gif" &&
+        //            ImageFile.ContentType.ToLower() != "image/x-png" &&
+        //            ImageFile.ContentType.ToLower() != "image/png")
+        //        {
+        //            return Content("Please upload Image");
+        //        }
+        //        else
+        //        {
+
+        //            string _filename = Path.GetFileName(ImageFile.FileName);
+        //            string _path = Path.Combine(Server.MapPath("~/ExamImage/"), _filename);
+        //            if (!System.IO.File.Exists(_path))
+        //            {
+        //                ImageFile.SaveAs(_path);
+        //                return Content("Upload Successed");
+        //            }
+        //            else
+        //            {
+        //                return Content("File already exist");
+        //            }
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return Content("Empty File");
+        //    }
+        //}
+
         [HttpPost]
-        public ActionResult Upload(HttpPostedFileBase ImageFile)
+        public ActionResult Upload()
         {
+            //HttpPostedFile ImageFile = context.Request.Files.Get(0);
+            var ImageFile = Request.Files[0];
+
             //check Empty File
-            if (ImageFile.ContentLength > 0)
+            if (ImageFile != null && ImageFile.ContentLength/1024/2014 < 2 )
             {
                 //check image type
                 if (ImageFile.ContentType.ToLower() != "image/jpg" &&
@@ -176,9 +222,10 @@ namespace MainProjectNew.Controllers
             }
             else
             {
-                return Content("Empty File");
+                return Content("Empty File or Too Large File");
             }
         }
+
 
         protected override void Dispose(bool disposing)
         {
