@@ -17,28 +17,53 @@ namespace MainProjectNew.Controllers
         // GET: Exhibitions
         public ActionResult Index()
         {
-            return View("Index", "_Layout",db.Exhibitions.ToList());
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Manager") || User.IsInRole("Student"))
+            {
+                return View("Index", "_Layout", db.Exhibitions.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         // GET: Exhibitions/Details/5
         public ActionResult Details(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Manager") || User.IsInRole("Student"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Exhibition exhibition = db.Exhibitions.Find(id);
+                if (exhibition == null)
+                {
+                    return HttpNotFound();
+                }
+                return View("Details", "_Layout", exhibition);
+
             }
-            Exhibition exhibition = db.Exhibitions.Find(id);
-            if (exhibition == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Contact", "Home");
             }
-            return View("Details", "_Layout",exhibition);
+
         }
 
         // GET: Exhibitions/Create
         public ActionResult Create()
         {
-            return View("Create", "_Layout");
+            if (User.IsInRole("Admin") || User.IsInRole("Staff")|| User.IsInRole("Student"))
+            {
+                return View("Create", "_Layout");
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         // POST: Exhibitions/Create
@@ -50,27 +75,43 @@ namespace MainProjectNew.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Exhibitions.Add(exhibition);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+                {
+                    db.Exhibitions.Add(exhibition);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
 
-            return View("Create", "_Layout",exhibition);
+                return View("Create", "_Layout", exhibition);
+
+            }
+            else
+                {
+                    return RedirectToAction("Contact", "Home");
+                }
         }
 
         // GET: Exhibitions/Edit/5
         public ActionResult Edit(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Exhibition exhibition = db.Exhibitions.Find(id);
+                if (exhibition == null)
+                {
+                    return HttpNotFound();
+                }
+                return View("Edit", "_Layout", exhibition);
             }
-            Exhibition exhibition = db.Exhibitions.Find(id);
-            if (exhibition == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Contact", "Home");
             }
-            return View("Edit", "_Layout",exhibition);
+
         }
 
         // POST: Exhibitions/Edit/5
@@ -80,28 +121,46 @@ namespace MainProjectNew.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ExhibitionID,num,Detail,Country,StartDate,EndDate,Condition,Quantity")] Exhibition exhibition)
         {
-            if (ModelState.IsValid)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff"))
             {
-                db.Entry(exhibition).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(exhibition).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                return View("Edit", "_Layout", exhibition);
+
             }
-            return View("Edit", "_Layout",exhibition);
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         // GET: Exhibitions/Delete/5
         public ActionResult Delete(string id)
         {
-            if (id == null)
+            if (User.IsInRole("Admin") || User.IsInRole("Staff"))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Exhibition exhibition = db.Exhibitions.Find(id);
+                if (exhibition == null)
+                {
+                    return HttpNotFound();
+                }
+                return View("Delete", "_Layout", exhibition);
+
             }
-            Exhibition exhibition = db.Exhibitions.Find(id);
-            if (exhibition == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Contact", "Home");
             }
-            return View("Delete", "_Layout",exhibition);
+
         }
 
         // POST: Exhibitions/Delete/5
@@ -109,10 +168,19 @@ namespace MainProjectNew.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Exhibition exhibition = db.Exhibitions.Find(id);
-            db.Exhibitions.Remove(exhibition);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+            {
+                Exhibition exhibition = db.Exhibitions.Find(id);
+                db.Exhibitions.Remove(exhibition);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+
         }
 
         protected override void Dispose(bool disposing)
