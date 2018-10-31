@@ -1,0 +1,50 @@
+﻿@model MainProjectNew.Models.Submit
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Submit</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.num)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.num)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Entity1ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Entity1ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Entity2ID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Entity2ID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IDSubmit }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

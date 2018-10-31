@@ -1,0 +1,51 @@
+﻿@model IEnumerable<MainProjectNew.Models.Submit>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.num)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Entity1ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Entity2ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.num)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Entity1ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Entity2ID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IDSubmit }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IDSubmit }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IDSubmit })
+        </td>
+    </tr>
+}
+
+</table>
