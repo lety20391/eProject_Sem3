@@ -76,7 +76,7 @@ GO
 
 --tao bang Student va foreign key
 CREATE TABLE [dbo].[Student](
-	[num] [int] NOT NULL,
+	[num] [int] IDENTITY(1,1) NOT NULL,
 	[StudentID]  AS ('STUDENT'+CONVERT([varchar](20),[num])) PERSISTED NOT NULL PRIMARY KEY,
 	[Name] [nvarchar](50) NOT NULL,
 	[Gender] [bit] NOT NULL,
