@@ -54,12 +54,8 @@ namespace MainProjectNew.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-<<<<<<< HEAD
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin, Staff, Student")]
-=======
-        //[ValidateAntiForgeryToken]
->>>>>>> c2d728d39faf994246d7f5d989668751d93593cd
         public ActionResult Create([Bind(Include = "ExamID,num,Path,Quotation,Story,IDStudent,IDCompetition,IDExhibition,Mark,IDAward,ChangeDescription,Status,MoneyReturn,Price,Improvement")] Exam exam)
         {
             if (ModelState.IsValid)
