@@ -1,15 +1,15 @@
 USE [master]
 GO
 --tao database ePrj3DB nho chinh lai duong dan
-CREATE DATABASE [eTestDB]
+CREATE DATABASE [ePrjNewDB]
  CONTAINMENT = NONE
  ON  PRIMARY 
-( NAME = N'ePrj3DB', FILENAME = N'E:\Aptech\Project Sem 3\Database\eTestDB.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+( NAME = N'ePrjNewDB', FILENAME = N'E:\Aptech\Project Sem 3\Database\ePrjNewDB.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
  LOG ON 
-( NAME = N'ePrj3DB_log', FILENAME = N'E:\Aptech\Project Sem 3\Database\eTestDB_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+( NAME = N'ePrjNewDB_log', FILENAME = N'E:\Aptech\Project Sem 3\Database\ePrjNewDB_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
 GO
 
-use eTestDB
+use ePrjNewDB
 go
 
 
@@ -85,6 +85,7 @@ CREATE TABLE [dbo].[Student](
 	[Address] [nvarchar](50) NULL,
 	[ClassID] [varchar](25) NULL,
 	[Admission] [nvarchar](100) NULL,
+	[Status] bit NOT NULL DEFAULT 1,
 )
 GO
 
@@ -106,6 +107,7 @@ CREATE TABLE [dbo].[Staff](
 	[Address] [nvarchar](50) NULL,
 	[ClassID] [varchar](25) NULL,
 	[Subject] [nvarchar](50) NULL,
+	[Status] bit NOT NULL DEFAULT 1,
 )
 GO
 
@@ -125,6 +127,7 @@ CREATE TABLE [dbo].[User](
 	[UserPass] [nvarchar](20) NOT NULL,
 	[Real_ID] [varchar](25) NULL,
 	[Role] [nvarchar](10) NOT NULL,
+	[Status] bit NOT NULL DEFAULT 1,
 )
 GO
 
@@ -135,6 +138,7 @@ CREATE TABLE [dbo].[Comment](
 	[Detail] [nvarchar](200) NULL,
 	[UserID] [varchar](24) NOT NULL,
 	[MainID] [varchar](40) NULL,
+	[Status] bit NOT NULL DEFAULT 1,
 )
 GO
 
@@ -218,5 +222,23 @@ REFERENCES [dbo].[Exhibition] ([ExhibitionID])
 GO
 
 ALTER TABLE [dbo].[Customer] CHECK CONSTRAINT [FK_Customer_Exhibition]
+GO
+
+alter table [User]
+alter column [Role] nvarchar(30)
+
+go
+alter table [User]
+add CONSTRAINT UC_Nick UNIQUE (UserNick)
+
+INSERT INTO [dbo].[User]
+           ([UserNick]
+           ,[UserPass]
+           ,[Role])
+     VALUES
+           ('Admin', 'abc123', 'Admin'),
+		   ('Dat Le', 'abc123', 'Staff;Admin'),
+		   ('Duy Shit', 'abc123', 'Manager;Admin'),
+		   ('Duyen Tran Truong', 'abc123', 'Staff;Admin')
 GO
 
