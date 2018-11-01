@@ -115,6 +115,36 @@ namespace MainProjectNew.Controllers
             return RedirectToAction("Index");
         }
 
+        //submit create danh cho Student
+
+        
+        public bool studentCreateSubmit(Submit newSubmit)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Submits.Add(newSubmit);
+                db.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
+
+        //submit create danh cho Student
+
+        public ActionResult test()
+        {
+            Submit newSubmit = new Submit();
+            newSubmit.num = 10;
+            newSubmit.IDSubmit = "";
+            newSubmit.Entity1ID = "Exam1";
+            newSubmit.Entity2ID = "Comp1";
+            newSubmit.Type = "Exam-Competition";
+            db.Submits.Add(newSubmit);
+            db.SaveChanges();
+            return Content("Success");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -298,8 +298,8 @@ namespace MainProjectNew.Controllers
                 System.Diagnostics.Debug.WriteLine(User.Identity.Name);
 
                 ViewBag.IDAward = new SelectList(db.Awards, "AwardID", "CompetitionID");
-                ViewBag.IDCompetition = new SelectList(searchComp, "CompetitionID", "Detail");
-                ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail");
+                ViewBag.IDCompetition = new SelectList(searchComp, "CompetitionID", "CompetitionID");
+                ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "ExhibitionID");
                 ViewBag.IDStudent = new SelectList(searchStud, "StudentID", "StudentID");
                 return View("studentSubmit", "_Layout");
 
@@ -321,7 +321,30 @@ namespace MainProjectNew.Controllers
                 {
                     db.Exams.Add(exam);
                     db.SaveChanges();
+
+                    //goi submit controller de add them data vao
+                    //var submitController = new SubmitsController();
+                    //submitController.ControllerContext = ControllerContext;
+
+                    //tao submit moi de luu IDExam va IDCompetition co lien quan
+                    //lay examID vua tao tu Database theo Path vi Path mac dinh la luu khong trung nhau
+                    string examID = db.Exams.Where(item => item.Path.Equals(exam.Path)).Select(item => item.ExamID).First();
+
+                    Submit newSubmit = new Submit();
+                    newSubmit.Entity1ID = examID;
+                    newSubmit.Entity2ID = exam.IDCompetition;
+                    newSubmit.Type = "Exam-Competition";
+                    db.Submits.Add(newSubmit);
+                    db.SaveChanges();
+
+                    System.Diagnostics.Debug.WriteLine("--------------------------------");
+                    System.Diagnostics.Debug.WriteLine(examID);
+                    System.Diagnostics.Debug.WriteLine(exam.IDCompetition);
+                    System.Diagnostics.Debug.WriteLine("--------------------------------");
+
+                    
                     return Content("Create Succesfully");
+                    
                 }
 
                 ViewBag.IDAward = new SelectList(db.Awards, "AwardID", "CompetitionID", exam.IDAward);
