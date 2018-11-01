@@ -12,35 +12,20 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Award.CompetitionID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Competition.Detail)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Exhibition.Detail)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Student.Name)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Path)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Quotation)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Story)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Mark)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ChangeDescription)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Status)
         </th>
+        <td>
+            @Html.DisplayNameFor(model => model.ChangeDescription)
+        </td>
         <th>
             @Html.DisplayNameFor(model => model.MoneyReturn)
         </th>
@@ -56,15 +41,6 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Award.CompetitionID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Competition.Detail)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Exhibition.Detail)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Student.Name)
         </td>
         <td>
@@ -72,19 +48,13 @@
             <img src="~/ExamImage/@item.Path" width="50" />
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Quotation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Story)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Mark)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ChangeDescription)
+            @Html.DisplayFor(modelItem => item.Status)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Status)
+            @Html.DisplayFor(modelItem => item.ChangeDescription)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.MoneyReturn)
@@ -96,9 +66,9 @@
             @Html.DisplayFor(modelItem => item.Improvement)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ExamID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ExamID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ExamID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.ExamID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ExamID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ExamID })
         </td>
     </tr>
 }

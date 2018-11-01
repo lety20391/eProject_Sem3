@@ -340,6 +340,7 @@ namespace MainProjectNew.Controllers
                         newSubmit.Entity1ID = examID;
                         newSubmit.Entity2ID = exam.IDCompetition;
                         newSubmit.Type = "Exam-Competition";
+                        newSubmit.time = DateTime.Now;
                         db.Submits.Add(newSubmit);
                         rowChange = db.SaveChanges();
                         if (rowChange > 0)

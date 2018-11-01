@@ -46,7 +46,7 @@ namespace MainProjectNew.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IDSubmit,num,Entity1ID,Entity2ID,Type")] Submit submit)
+        public ActionResult Create([Bind(Include = "IDSubmit,num,Entity1ID,Entity2ID,Type,time")] Submit submit)
         {
             if (ModelState.IsValid)
             {
@@ -140,6 +140,7 @@ namespace MainProjectNew.Controllers
             newSubmit.Entity1ID = "Exam1";
             newSubmit.Entity2ID = "Comp1";
             newSubmit.Type = "Exam-Competition";
+            newSubmit.time = DateTime.Now;
             db.Submits.Add(newSubmit);
             db.SaveChanges();
             return Content("Success");

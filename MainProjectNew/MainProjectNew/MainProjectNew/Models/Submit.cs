@@ -26,5 +26,8 @@ namespace MainProjectNew.Models
 
         [StringLength(30)]
         public string Type { get; set; }
+
+        [DataType(DataType.DateTime)]
+        public DateTime time { get; set; }
     }
 }
