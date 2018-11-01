@@ -163,6 +163,7 @@
     <Compile Include="Controllers\ExamsController.cs" />
     <Compile Include="Controllers\ExhibitionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\StaffsController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
@@ -199,6 +200,21 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\NguoidungcssLayOut\animate.min.css" />
+    <Content Include="Content\NguoidungcssLayOut\bootstrap.min.css" />
+    <Content Include="Content\NguoidungcssLayOut\custom.css" />
+    <Content Include="Content\NguoidungcssLayOut\font-awesome.min.css" />
+    <Content Include="Content\NguoidungcssLayOut\jquery.fullPage.css" />
+    <Content Include="Content\NguoidungcssLayOut\jquery.multiscroll.css" />
+    <Content Include="Content\NguoidungcssLayOut\magnific-popup.css" />
+    <Content Include="Content\NguoidungcssLayOut\morphext.css" />
+    <Content Include="Content\NguoidungcssLayOut\owl.carousel.css" />
+    <Content Include="Content\NguoidungcssLayOut\owl.theme.css" />
+    <Content Include="Content\NguoidungcssLayOut\owl.transitions.css" />
+    <Content Include="Content\NguoidungcssLayOut\pe-icon-7-stroke.css" />
+    <Content Include="Content\NguoidungcssLayOut\prettyPhoto.css" />
+    <Content Include="Content\NguoidungcssLayOut\settings.css" />
+    <Content Include="Content\NguoidungcssLayOut\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -3043,6 +3059,8 @@
     <Content Include="Views\Exams\studentSubmit.cshtml" />
     <Content Include="Views\Exams\getStudentExam.cshtml" />
     <Content Include="Views\Exams\searchStudentExam.cshtml" />
+    <Content Include="Views\HomePage\Index.cshtml" />
+    <Content Include="Views\Shared\NguoiDungLayOut.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
