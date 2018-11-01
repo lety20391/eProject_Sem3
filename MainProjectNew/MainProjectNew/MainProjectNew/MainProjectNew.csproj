@@ -3046,6 +3046,7 @@
     <Content Include="Views\Exams\searchStudentExam.cshtml" />
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\Shared\NguoiDungLayOut.cshtml" />
+    <Content Include="Views\Shared\HorizontalMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
