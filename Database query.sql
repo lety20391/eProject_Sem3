@@ -50,7 +50,7 @@ CREATE TABLE [dbo].[Submit](
 	[num] [int] IDENTITY(1,1) NOT NULL,
 	[IDSubmit]  AS ('SUBMIT'+CONVERT([varchar](20),[num])) PERSISTED NOT NULL PRIMARY KEY,
 	[Entity1ID] [varchar](40) NULL,
-	[Entity2ID] [varchar](4) NULL,
+	[Entity2ID] [varchar](40) NULL,
 	[Type] [nvarchar](10) NULL,
 )
 GO
