@@ -162,6 +162,7 @@
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\ExamsController.cs" />
     <Compile Include="Controllers\ExhibitionsController.cs" />
+    <Compile Include="Controllers\GalleryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HomePageController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -3062,6 +3063,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ExamImage\" />
+    <Folder Include="Views\Gallery\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
