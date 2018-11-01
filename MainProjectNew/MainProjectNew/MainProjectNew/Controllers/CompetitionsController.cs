@@ -207,8 +207,15 @@ namespace MainProjectNew.Controllers
 
         public ActionResult forStaff()
         {
-            var competitions = db.Competitions.Include(c => c.Award);
-            return View("forStaff", "_Layout", competitions.ToList());
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Manager"))
+            {
+                var competitions = db.Competitions.Include(c => c.Award);
+                return View("forStaff", "_Layout", competitions.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
         }
     }
 }

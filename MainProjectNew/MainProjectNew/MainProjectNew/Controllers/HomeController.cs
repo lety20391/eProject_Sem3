@@ -13,18 +13,16 @@ namespace MainProjectNew.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult StudentErr()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            return View("StudentErr", "_Layout");
         }
 
         public ActionResult Contact()
         {
             
 
-            return View();
+            return View("Contact", "_Layout");
         }
     }
 }

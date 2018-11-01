@@ -286,7 +286,7 @@ namespace MainProjectNew.Controllers
 
         public ActionResult studentSubmit(string id)
         {
-            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Student"))
+            if (User.IsInRole("Student"))
             {
                 
                 List<Competition> searchComp = db.Competitions.Where(item => item.CompetitionID.Equals(id)).ToList();
@@ -306,7 +306,7 @@ namespace MainProjectNew.Controllers
             }
             else
             {
-                return RedirectToAction("Contact", "Home");
+                return RedirectToAction("StudentErr", "Home");
             }
 
         }
@@ -315,7 +315,7 @@ namespace MainProjectNew.Controllers
         [HttpPost]
         public ActionResult studentSubmit([Bind(Include = "ExamID,num,Path,Quotation,Story,IDStudent,IDCompetition,IDExhibition,Mark,IDAward,ChangeDescription,Status,MoneyReturn,Price,Improvement")] Exam exam)
         {
-            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Student"))
+            if (User.IsInRole("Student"))
             {
                 string _path = Path.Combine(Server.MapPath("~/ExamImage/"), exam.Path);
                 if (ModelState.IsValid)
@@ -376,7 +376,7 @@ namespace MainProjectNew.Controllers
             }
             else
             {
-                return RedirectToAction("Contact", "Home");
+                return RedirectToAction("StudentErr", "Home");
             }
 
         }
@@ -412,8 +412,14 @@ namespace MainProjectNew.Controllers
 
         public ActionResult getCompeExam(string id)
         {
-         //   string compID = db.Competitions.Where(item => item.Equals()).Select(item => item.CompetitionID).First();
-            return View("getCompeExam", "_Layout", db.Exams.Where(item => item.IDCompetition.Equals(id)).OrderByDescending(item => item.ExamID).Take(100).ToList());
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Manager"))
+            {
+                return View("getCompeExam", "_Layout", db.Exams.Where(item => item.IDCompetition.Equals(id)).OrderByDescending(item => item.ExamID).Take(100).ToList());
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
         }
         protected override void Dispose(bool disposing)
         {
