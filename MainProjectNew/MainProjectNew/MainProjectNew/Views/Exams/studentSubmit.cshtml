@@ -182,51 +182,58 @@
 
 <script>
     function sendData() {
-
-        //upload image first
-        //prepare image data
+        if ($("#ImageFile").val() != "") {
+            //upload image first
+            //prepare image data
             url = "/Exams/Upload";
             var formData = new FormData();
             formData.append("file", $("#ImageFile")[0].files[0]);
             //post image data to server
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: formData,
-                success: function (result) {
-                    console.log(result);
-                    if (result == "Upload Successed") {
+            if (jQuery("#formData").valid()) {
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: formData,
+                    success: function (result) {
+                        console.log(result);
+                        if (result == "Upload Successed") {
 
-                        $("#Path").val($("#ImageFile")[0].files[0].name);
-                        sendFormData();
-                    } else {
-                        alert(result);
+                            $("#Path").val($("#ImageFile")[0].files[0].name);
+                            sendFormData();
+                        } else {
+                            alert(result);
+                        }
+                    },
+                    processData: false,
+                    contentType: false,
+                    error: function () {
+                        alert("Upload Image Failed!");
                     }
-                },
-                processData: false,
-                contentType: false,
-                error: function () {
-                    alert("Upload Image Failed!");
-                }
-            });
+                });
+            }
+        } else {
+            alert("Please choose Image first");
+        }
     }
 
     function sendFormData()
     {
-        url = "/Exams/studentSubmit"
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: $("#formData").serialize(),
-            success: function (result) {
-                if (result == "Create Succesfully") {
-                    alert("Submit succesfully");
-                    window.location.replace("/Login/AdminCP");
-                } else {
-                    alert("Try upload again");
-                }
+        
+            url = "/Exams/studentSubmit"
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $("#formData").serialize(),
+                success: function (result) {
+                    if (result == "Create Succesfully") {
+                        alert("Submit succesfully");
+                        window.location.replace("/Exams/getStudentExam");
+                    } else {
+                        alert(result);
+                    }
 
-            },
-        });
+                },
+            });
+        
     }
 </script>

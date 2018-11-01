@@ -317,41 +317,60 @@ namespace MainProjectNew.Controllers
         {
             if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Student"))
             {
+                string _path = Path.Combine(Server.MapPath("~/ExamImage/"), exam.Path);
                 if (ModelState.IsValid)
                 {
+
                     db.Exams.Add(exam);
-                    db.SaveChanges();
+                    int rowChange = db.SaveChanges();
 
-                    //goi submit controller de add them data vao
-                    //var submitController = new SubmitsController();
-                    //submitController.ControllerContext = ControllerContext;
+                    //neu Save change thanh cong thi so Row bi thay doi se lon hon 0
+                    if (rowChange > 0)
+                    {
 
-                    //tao submit moi de luu IDExam va IDCompetition co lien quan
-                    //lay examID vua tao tu Database theo Path vi Path mac dinh la luu khong trung nhau
-                    string examID = db.Exams.Where(item => item.Path.Equals(exam.Path)).Select(item => item.ExamID).First();
+                        //goi submit controller de add them data vao
+                        //var submitController = new SubmitsController();
+                        //submitController.ControllerContext = ControllerContext;
 
-                    Submit newSubmit = new Submit();
-                    newSubmit.Entity1ID = examID;
-                    newSubmit.Entity2ID = exam.IDCompetition;
-                    newSubmit.Type = "Exam-Competition";
-                    db.Submits.Add(newSubmit);
-                    db.SaveChanges();
+                        //tao submit moi de luu IDExam va IDCompetition co lien quan
+                        //lay examID vua tao tu Database theo Path vi Path mac dinh la luu khong trung nhau
+                        string examID = db.Exams.Where(item => item.Path.Equals(exam.Path)).Select(item => item.ExamID).First();
 
-                    System.Diagnostics.Debug.WriteLine("--------------------------------");
-                    System.Diagnostics.Debug.WriteLine(examID);
-                    System.Diagnostics.Debug.WriteLine(exam.IDCompetition);
-                    System.Diagnostics.Debug.WriteLine("--------------------------------");
+                        Submit newSubmit = new Submit();
+                        newSubmit.Entity1ID = examID;
+                        newSubmit.Entity2ID = exam.IDCompetition;
+                        newSubmit.Type = "Exam-Competition";
+                        db.Submits.Add(newSubmit);
+                        rowChange = db.SaveChanges();
+                        if (rowChange > 0)
+                        {
+                            return Content("Create Succesfully");
+                        }else
+                        {
+                            //xoa Exam va xoa hinh da upload
+                            db.Exams.Remove(exam);
+                            db.SaveChanges();
+                            
+                            if (System.IO.File.Exists(_path))
+                                System.IO.File.Delete(_path);
 
-                    
-                    return Content("Create Succesfully");
+                            return Content("Error! Please reload and try again");
+
+                        }
+                    }else
+                    {
+                        //neu save change trong Exam that bai thi xoa anh da up
+                        if (System.IO.File.Exists(_path))
+                            System.IO.File.Delete(_path);
+                        return Content("Error! Please reload and try again");
+                    }
                     
                 }
-
-                ViewBag.IDAward = new SelectList(db.Awards, "AwardID", "CompetitionID", exam.IDAward);
-                ViewBag.IDCompetition = new SelectList(db.Competitions, "CompetitionID", "Detail", exam.IDCompetition);
-                ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail", exam.IDExhibition);
-                ViewBag.IDStudent = new SelectList(db.Students, "StudentID", "Name", exam.IDStudent);
-                return Content("Create Failed");
+                //Exam up len bi loi thi xoa hinh
+                
+                if (System.IO.File.Exists(_path))
+                    System.IO.File.Delete(_path);
+                return Content("Exam Information Invalid! Please reload and try again");
 
             }
             else
