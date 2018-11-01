@@ -24,7 +24,7 @@ namespace MainProjectNew.Models
         [StringLength(40)]
         public string Entity2ID { get; set; }
 
-        [StringLength(10)]
+        [StringLength(30)]
         public string Type { get; set; }
     }
 }
