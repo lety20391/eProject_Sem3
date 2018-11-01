@@ -2361,6 +2361,7 @@
     <Content Include="heli\fonts\Pe-icon-7-stroke.svg" />
     <Content Include="heli\fonts\revicons.svg" />
     <Content Include="heli\fonts\star.svg" />
+    <Content Include="heli\images\1110x678.jpg" />
     <Content Include="heli\images\arrow.svg" />
     <Content Include="heli\images\avatar\avatar_120x120.jpg" />
     <Content Include="heli\images\avatar\avatar_80x80.jpg" />
@@ -2415,6 +2416,14 @@
     <Content Include="heli\images\logo.png" />
     <Content Include="heli\images\logo.svg" />
     <Content Include="heli\images\logo2.svg" />
+    <Content Include="heli\images\main1920x700.jpg" />
+    <Content Include="heli\images\main350x350-1.jpg" />
+    <Content Include="heli\images\main350x350-2.jpg" />
+    <Content Include="heli\images\main350x350-3.jpg" />
+    <Content Include="heli\images\main350x350-4.jpg" />
+    <Content Include="heli\images\main350x350-5.jpg" />
+    <Content Include="heli\images\main350x350-6.jpg" />
+    <Content Include="heli\images\mainpic1920x1000.jpg" />
     <Content Include="heli\images\maintenance_2.png" />
     <Content Include="heli\images\map-marker.png" />
     <Content Include="heli\images\prettyPhoto\dark_rounded\btnNext.png" />

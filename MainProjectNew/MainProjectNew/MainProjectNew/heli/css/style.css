@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 
 /**
  Table of Contents:
@@ -1751,7 +1751,7 @@ table {
 	background-position: center;
 }
 .section-bg-2 {
-	background-image:url(../images/background/bg_1920x700.jpg);
+	background-image:url(../images/main1920x700.jpg);
 	background-position: center;
 }
 .section-bg-3 {
@@ -1763,7 +1763,7 @@ table {
 	background-position: center;
 }
 .section-bg-5 {
-	background-image:url(../images/background/bg_1920x1000.jpg);
+	background-image:url(../images/mainpic1920x1000.jpg);
 	background-position: center;
 }
 .section-bg-6 {
