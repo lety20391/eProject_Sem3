@@ -22,6 +22,7 @@
         <h4>Exam</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
         @Html.HiddenFor(item => item.Path)
 
         @*<div class="form-group">
@@ -64,34 +65,35 @@
             </div>
         </div>
 
-        @Html.HiddenFor(model => model.IDExhibition)
+        @*@Html.HiddenFor(model => model.IDExhibition)*@
 
-        @*<div class="form-group">
+        <div class="form-group" style="display:none">
                 @Html.LabelFor(model => model.IDExhibition, "IDExhibition", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.DropDownList("IDExhibition", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.IDExhibition, "", new { @class = "text-danger" })
                 </div>
-            </div>*@
+            </div>
 
-        @Html.HiddenFor(model => model.Mark)
+        @*@Html.HiddenFor(model => model.Mark)*@
 
-        @*<div class="form-group">
+        <div class="form-group" style="display:none">
                 @Html.LabelFor(model => model.Mark, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Mark, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Mark, "", new { @class = "text-danger" })
                 </div>
-            </div>*@
+            </div>
 
-        @Html.HiddenFor(model => model.IDAward)
-        @*<div class="form-group">
+        @*@Html.HiddenFor(model => model.IDAward)*@
+
+        <div class="form-group" style="display:none">
                 @Html.LabelFor(model => model.IDAward, "IDAward", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.DropDownList("IDAward", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.IDAward, "", new { @class = "text-danger" })
                 </div>
-            </div>*@
+            </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.ChangeDescription, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -100,8 +102,10 @@
                 @Html.ValidationMessageFor(model => model.ChangeDescription, "", new { @class = "text-danger" })
             </div>
         </div>
-        @Html.HiddenFor(model => model.Status)
-        @*<div class="form-group">
+
+        @*@Html.HiddenFor(model => model.Status)*@
+
+        <div class="form-group" style="display:none">
                 @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     <div class="checkbox">
@@ -109,10 +113,11 @@
                         @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
                     </div>
                 </div>
-            </div>*@
+            </div>
 
-        @Html.HiddenFor(model => model.MoneyReturn)
-        @*<div class="form-group">
+        @*@Html.HiddenFor(model => model.MoneyReturn)*@
+
+        <div class="form-group" style="display:none">
                 @Html.LabelFor(model => model.MoneyReturn, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     <div class="checkbox">
@@ -120,7 +125,7 @@
                         @Html.ValidationMessageFor(model => model.MoneyReturn, "", new { @class = "text-danger" })
                     </div>
                 </div>
-            </div>*@
+            </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -130,8 +135,9 @@
             </div>
         </div>
 
-        @Html.HiddenFor(model => model.Improvement)
-        @*<div class="form-group">
+        @*@Html.HiddenFor(model => model.Improvement)*@
+
+        <div class="form-group" style="display:none">
                 @Html.LabelFor(model => model.Improvement, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     <div class="checkbox">
@@ -139,11 +145,11 @@
                         @Html.ValidationMessageFor(model => model.Improvement, "", new { @class = "text-danger" })
                     </div>
                 </div>
-            </div>*@
+            </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Submit" class="btn btn-default" />
+                <input type="button" value="Submit" class="btn btn-default" onclick="sendData()" />
             </div>
         </div>
     </div>
@@ -152,6 +158,7 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
 @*preview image before upload*@
 <script>
     document.getElementById("ImageFile").onchange = function () {

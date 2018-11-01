@@ -272,7 +272,7 @@ namespace MainProjectNew.Controllers
                     }
                     else
                     {
-                        return Content("File already exist");
+                        return Content("Image already exist");
                     }
                 }
             }
@@ -300,7 +300,7 @@ namespace MainProjectNew.Controllers
                 ViewBag.IDAward = new SelectList(db.Awards, "AwardID", "CompetitionID");
                 ViewBag.IDCompetition = new SelectList(searchComp, "CompetitionID", "Detail");
                 ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail");
-                ViewBag.IDStudent = new SelectList(searchStud, "StudentID", "Name");
+                ViewBag.IDStudent = new SelectList(searchStud, "StudentID", "StudentID");
                 return View("studentSubmit", "_Layout");
 
             }
