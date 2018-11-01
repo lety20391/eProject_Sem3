@@ -2414,9 +2414,14 @@
     <Content Include="heli\images\image_736x595.jpg" />
     <Content Include="heli\images\image_783x624.jpg" />
     <Content Include="heli\images\image_918x467.jpg" />
+    <Content Include="heli\images\logo-home.jpg" />
     <Content Include="heli\images\logo.png" />
     <Content Include="heli\images\logo.svg" />
     <Content Include="heli\images\logo2.svg" />
+    <Content Include="heli\images\logofooter.svg" />
+    <Content Include="heli\images\LOGOHOME.jpg" />
+    <Content Include="heli\images\LOGOHOMEpage.jpg" />
+    <Content Include="heli\images\main1920x1000.jpg" />
     <Content Include="heli\images\main1920x700.jpg" />
     <Content Include="heli\images\main350x350-1.jpg" />
     <Content Include="heli\images\main350x350-2.jpg" />
