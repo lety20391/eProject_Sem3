@@ -409,7 +409,11 @@ namespace MainProjectNew.Controllers
         }
         //searchStudent Exam
 
-
+        public ActionResult getCompeExam(string id)
+        {
+         //   string compID = db.Competitions.Where(item => item.Equals()).Select(item => item.CompetitionID).First();
+            return View("getCompeExam", "_Layout", db.Exams.Where(item => item.IDCompetition.Equals(id)).OrderByDescending(item => item.ExamID).Take(100).ToList());
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

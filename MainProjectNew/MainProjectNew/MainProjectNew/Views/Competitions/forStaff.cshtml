@@ -1,0 +1,57 @@
+﻿@model IEnumerable<MainProjectNew.Models.Competition>
+
+@{
+    ViewBag.Title = "forStaff";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AwardID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CompetitionID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Detail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Condition)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AwardID)
+            </td>
+            <th>
+                @Html.DisplayFor(model => item.CompetitionID)
+            </th>
+            <td>
+                @Html.DisplayFor(modelItem => item.Detail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Condition)
+            </td>
+            <td>
+                @Html.ActionLink("Display Exams", "getCompeExam", "Exams", new { id = item.CompetitionID }, null) |
+            </td>
+        </tr>
+    }
+
+</table>

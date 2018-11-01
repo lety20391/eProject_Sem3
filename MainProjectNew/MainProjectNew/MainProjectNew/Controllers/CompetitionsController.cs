@@ -204,5 +204,11 @@ namespace MainProjectNew.Controllers
             var competitions = db.Competitions.Include(c => c.Award);
             return View("forStudent", "_Layout", competitions.ToList());
         }
+
+        public ActionResult forStaff()
+        {
+            var competitions = db.Competitions.Include(c => c.Award);
+            return View("forStaff", "_Layout", competitions.ToList());
+        }
     }
 }
