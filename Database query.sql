@@ -4,9 +4,9 @@ GO
 CREATE DATABASE [ePrjNewDB]
  CONTAINMENT = NONE
  ON  PRIMARY 
-( NAME = N'ePrjNewDB', FILENAME = N'E:\Aptech\PRJ3\DATABASE SEM3 PROJECT\ePrjNewDB.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+( NAME = N'ePrjNewDB', FILENAME = N'E:\Aptech\Project Sem 3\Database\ePrjNewDB.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
  LOG ON 
-( NAME = N'ePrjNewDB_log', FILENAME = N'E:\Aptech\PRJ3\DATABASE SEM3 PROJECT\ePrjNewDB_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+( NAME = N'ePrjNewDB_log', FILENAME = N'E:\Aptech\Project Sem 3\Database\ePrjNewDB_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
 GO
 
 use ePrjNewDB
@@ -51,7 +51,8 @@ CREATE TABLE [dbo].[Submit](
 	[IDSubmit]  AS ('SUBMIT'+CONVERT([varchar](20),[num])) PERSISTED NOT NULL PRIMARY KEY,
 	[Entity1ID] [varchar](40) NULL,
 	[Entity2ID] [varchar](40) NULL,
-	[Type] [nvarchar](10) NULL,
+	[Type] [nvarchar](30) NULL,
+	[time] [datetime] NULL,
 )
 GO
 

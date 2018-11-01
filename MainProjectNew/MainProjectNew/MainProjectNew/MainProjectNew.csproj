@@ -2389,6 +2389,7 @@
     <Content Include="heli\images\gallery\gallery_480x480.jpg" />
     <Content Include="heli\images\gallery\gallery_620x620.jpg" />
     <Content Include="heli\images\grabbing.png" />
+    <Content Include="heli\images\home\1110x678.jpg" />
     <Content Include="heli\images\image_1110x678.jpg" />
     <Content Include="heli\images\image_220x322.jpg" />
     <Content Include="heli\images\image_223x318.jpg" />
@@ -2527,6 +2528,33 @@
     <Content Include="heli\images\slider\tj_symbol_2.png" />
     <Content Include="heli\images\slider\transparent.png" />
     <Content Include="heli\images\slider\watch_big-2.png" />
+    <Content Include="heli\images\students pic\1.jpg" />
+    <Content Include="heli\images\students pic\10.jpg" />
+    <Content Include="heli\images\students pic\11.jpg" />
+    <Content Include="heli\images\students pic\12.jpg" />
+    <Content Include="heli\images\students pic\13.jpg" />
+    <Content Include="heli\images\students pic\14.jpg" />
+    <Content Include="heli\images\students pic\15.jpg" />
+    <Content Include="heli\images\students pic\16.jpg" />
+    <Content Include="heli\images\students pic\17.jpg" />
+    <Content Include="heli\images\students pic\18.jpg" />
+    <Content Include="heli\images\students pic\19.jpg" />
+    <Content Include="heli\images\students pic\2.jpg" />
+    <Content Include="heli\images\students pic\20.jpg" />
+    <Content Include="heli\images\students pic\21.jpg" />
+    <Content Include="heli\images\students pic\22.jpg" />
+    <Content Include="heli\images\students pic\23.jpg" />
+    <Content Include="heli\images\students pic\24.jpg" />
+    <Content Include="heli\images\students pic\25.jpg" />
+    <Content Include="heli\images\students pic\26.jpg" />
+    <Content Include="heli\images\students pic\27.jpeg" />
+    <Content Include="heli\images\students pic\3.jpg" />
+    <Content Include="heli\images\students pic\4.jpg" />
+    <Content Include="heli\images\students pic\5.jpg" />
+    <Content Include="heli\images\students pic\6.jpg" />
+    <Content Include="heli\images\students pic\7.jpg" />
+    <Content Include="heli\images\students pic\8.jpg" />
+    <Content Include="heli\images\students pic\9.jpg" />
     <Content Include="heli\images\team\team_350x445.jpg" />
     <Content Include="heli\images\text.png" />
     <Content Include="heli\images\x.png" />
@@ -2990,7 +3018,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\StudentErr.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
@@ -3057,8 +3085,6 @@
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\Shared\NguoiDungLayOut.cshtml" />
     <Content Include="Views\Shared\HorizontalMenu.cshtml" />
-    <Content Include="Views\Competitions\forStaff.cshtml" />
-    <Content Include="Views\Exams\getCompeExam.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
