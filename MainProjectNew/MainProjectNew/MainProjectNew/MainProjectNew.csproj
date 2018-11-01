@@ -3056,6 +3056,8 @@
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\Shared\NguoiDungLayOut.cshtml" />
     <Content Include="Views\Shared\HorizontalMenu.cshtml" />
+    <Content Include="Views\Competitions\forStaff.cshtml" />
+    <Content Include="Views\Exams\getCompeExam.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

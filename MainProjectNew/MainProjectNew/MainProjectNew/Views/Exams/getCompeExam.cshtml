@@ -1,0 +1,101 @@
+﻿@model IEnumerable<MainProjectNew.Models.Exam>
+@{
+    ViewBag.Title = "Student Exams";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Competition.CompetitionID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Competition.Detail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Exhibition.Detail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Student.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Path)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quotation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Story)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mark)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ChangeDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MoneyReturn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Improvement)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Competition.CompetitionID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Competition.Detail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Exhibition.Detail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Student.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Path)
+                <img src="~/ExamImage/@item.Path" width="50" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quotation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Story)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mark)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChangeDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MoneyReturn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Improvement)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ExamID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ExamID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ExamID })
+            </td>
+        </tr>
+    }
+
+</table>
