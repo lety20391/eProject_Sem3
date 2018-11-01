@@ -3041,6 +3041,8 @@
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Competitions\forStudent.cshtml" />
     <Content Include="Views\Exams\studentSubmit.cshtml" />
+    <Content Include="Views\Exams\getStudentExam.cshtml" />
+    <Content Include="Views\Exams\searchStudentExam.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

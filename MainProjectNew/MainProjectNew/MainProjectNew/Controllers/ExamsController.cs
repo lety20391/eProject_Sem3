@@ -363,6 +363,34 @@ namespace MainProjectNew.Controllers
 
         //danh cho student Submit
 
+        //getStudent Exam
+        public ActionResult getStudentExam()
+        {
+            string studID = db.Users.Where(item => item.UserNick.Equals(User.Identity.Name)).Select(item => item.Real_ID).First();
+            
+            return View("getStudentExam", "_Layout" , db.Exams.Where(item => item.IDStudent.Equals(studID)).OrderByDescending(item => item.ExamID).Take(100).ToList());
+        }
+        //getStudent Exam
+
+
+        //searchStudent Exam
+
+        //public ActionResult searchStudentExam()
+        //{
+        //    return View("searchStudentExam", "_Layout");
+        //}
+
+        public ActionResult searchStudentExam(string id)
+        {
+            string studID = db.Users.Where(item => item.UserNick.Equals(User.Identity.Name)).Select(item => item.Real_ID).First();
+
+            List<Exam> searchExam = db.Exams.Where(item => item.IDStudent.Equals(studID) && (item.Quotation.Contains(id) || item.Story.Contains(id) )).OrderByDescending(item => item.ExamID).Take(100).ToList();
+
+            return View("searchStudentExam", "_Layout", searchExam);
+        }
+        //searchStudent Exam
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
