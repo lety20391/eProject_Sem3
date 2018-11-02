@@ -381,15 +381,6 @@
                                             </ul>
                                         }
                                         else
-                                        if (User.IsInRole("Admin") || User.IsInRole("Staff"))
-                                        {
-                                            <a href="#"><i class="icon-copy"></i> <span>For Student</span></a>
-                                            <ul>
-                                                <li class="disabled"><a href="/Competitions/forStudent" id="sbCompetition">Submit Competition</a></li>
-                                                <li class="disabled"><a href="/Exams/getStudentExam" id="myExam">My Exam</a></li>
-                                            </ul>
-                                        }
-                                        else
                                         {
                                         <li class="disabled"><a href="#"><i class="icon-copy"></i> <span>For Student</span></a></li>
 
@@ -397,7 +388,7 @@
                                         </li>
 
                                         <li>
-                                            @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+                                            @if ( User.IsInRole("Staff"))
                                             {
                                                 <a href="#"><i class="icon-droplet2"></i> <span>For Staff</span></a>
                                                 <ul>
