@@ -2416,6 +2416,7 @@
     <Content Include="heli\images\image_736x595.jpg" />
     <Content Include="heli\images\image_783x624.jpg" />
     <Content Include="heli\images\image_918x467.jpg" />
+    <Content Include="heli\images\login-1920x800.jpg" />
     <Content Include="heli\images\logo-home.jpg" />
     <Content Include="heli\images\logo.png" />
     <Content Include="heli\images\logo.svg" />
