@@ -188,6 +188,46 @@ namespace MainProjectNew.Controllers
 
         }
 
+        //postcomment
+
+            [HttpPost]
+            public ActionResult postComment([Bind(Include = "Detail,MainID")] Comment newComment)
+            {
+            System.Diagnostics.Debug.WriteLine("----------------------");
+            System.Diagnostics.Debug.WriteLine(newComment.Detail);
+            System.Diagnostics.Debug.WriteLine(newComment.MainID);
+            System.Diagnostics.Debug.WriteLine("----------------------");
+                string UserID = db.Users.Where(item => item.UserNick.Equals(User.Identity.Name)).Select(item => item.IDUser).FirstOrDefault();
+                newComment.UserID = UserID;
+                db.Comments.Add(newComment);
+                db.SaveChanges();
+                return Content("Success");
+            }
+
+        //postcomment
+
+        //get list Comment in JSON format
+
+        public ActionResult getCommentJSON(string id)
+        {
+            List<Comment> searchComment = db.Comments.Where(item => item.MainID.Equals(id)).OrderByDescending(item => item.CommentID).ToList();
+            System.Diagnostics.Debug.WriteLine("------------");
+            System.Diagnostics.Debug.WriteLine(id);
+            System.Diagnostics.Debug.WriteLine(searchComment.Count);
+            System.Diagnostics.Debug.WriteLine("----------------");
+            var result = new JsonResult()
+            {
+                Data = searchComment
+            };
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        //get list Comment in JSON format
+
+
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
