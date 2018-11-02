@@ -344,50 +344,79 @@
                                 <li class="navigation-header"><span>Main</span> <i class="icon-menu" title="Main pages"></i></li>
                                 <li class="active"><a href="index.html"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
                                 <li>
-                                    <a href="#"><i class="icon-stack2"></i> <span>Manage</span></a>
-                                    <ul>
-                                        <li><a href="/Users/Index">User</a></li>
-                                        <li><a href="/Students/Index">Student</a></li>
-                                        <li><a href="/Staffs/Index">Staff</a></li>
-                                        <li><a href="/Exhibitions/Index">Exhibition</a></li>
-                                        <li><a href="/Competitions/Index">Competition</a></li>
-                                        <li><a href="/Exams/Index">Exam</a></li>
-                                        <li><a href="/Customers/Index">Customer</a></li>
-                                        <li><a href="/Comments/Index">Comment</a></li>
-                                        <li><a href="/Classes/Index">Class</a></li>
-                                        <li><a href="/Awards/Index">Award</a></li>
-                                        <li><a href="/Submits/Index">Submit</a></li>
-                                        <li class="navigation-divider"></li>
-                                        <li><a href="boxed_default.html">Boxed with default sidebar</a></li>
-                                        <li><a href="boxed_mini.html">Boxed with mini sidebar</a></li>
-                                        <li><a href="boxed_full.html">Boxed full width</a></li>
-                                    </ul>
-                                </li>
+                                    @if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Staff"))
+                                    {
+                                        <a href="#"><i class="icon-stack2"></i> <span>Manage</span></a>
+                                        <ul>
+                                            <li><a href="/Users/Index">User</a></li>
+                                            <li><a href="/Students/Index">Student</a></li>
+                                            <li><a href="/Staffs/Index">Staff</a></li>
+                                            <li><a href="/Exhibitions/Index">Exhibition</a></li>
+                                            <li><a href="/Competitions/Index">Competition</a></li>
+                                            <li><a href="/Exams/Index">Exam</a></li>
+                                            <li><a href="/Customers/Index">Customer</a></li>
+                                            <li><a href="/Comments/Index">Comment</a></li>
+                                            <li><a href="/Classes/Index">Class</a></li>
+                                            <li><a href="/Awards/Index">Award</a></li>
+                                            <li><a href="/Submits/Index">Submit</a></li>
+                                            <li class="navigation-divider"></li>
+                                            <li><a href="boxed_default.html">Boxed with default sidebar</a></li>
+                                            <li><a href="boxed_mini.html">Boxed with mini sidebar</a></li>
+                                            <li><a href="boxed_full.html">Boxed full width</a></li>
+                                        </ul>
+                                    }
+                                    else
+                                    {
+                                    <li class="disabled"><a href="#"><i class="icon-stack2"></i> <span>Manage</span></a></li>
+                                }
+                                    </li>
 
-                                <li>
-                                    <a href="#"><i class="icon-copy"></i> <span>For Student</span></a>
-                                    <ul>
-                                        <li><a href="/Competitions/forStudent" id="sbCompetition">Submit Competition</a></li>
-                                        <li><a href="/Exams/getStudentExam" id="myExam">My Exam</a></li>
-                                        <li class="disabled"><a href="../../../../layout_6/LTR/default/full/index.html" id="layout6">Layout 6 <span class="label label-transparent">Coming soon</span></a></li>
-                                    </ul>
-                                </li>
+                                    <li>
+                                        @if (User.IsInRole("Student"))
+                                        {
+                                            <a href="#"><i class="icon-copy"></i> <span>For Student</span></a>
+                                            <ul>
+                                                <li><a href="/Competitions/forStudent" id="sbCompetition">Submit Competition</a></li>
+                                                <li><a href="/Exams/getStudentExam" id="myExam">My Exam</a></li>
+                                            </ul>
+                                        }
+                                        else
+                                        if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+                                        {
+                                            <a href="#"><i class="icon-copy"></i> <span>For Student</span></a>
+                                            <ul>
+                                                <li class="disabled"><a href="/Competitions/forStudent" id="sbCompetition">Submit Competition</a></li>
+                                                <li class="disabled"><a href="/Exams/getStudentExam" id="myExam">My Exam</a></li>
+                                            </ul>
+                                        }
+                                        else
+                                        {
+                                                <li class="disabled"><a href="#"><i class="icon-copy"></i> <span>For Student</span></a></li>
 
-                                <li>
-                                    <a href="#"><i class="icon-droplet2"></i> <span>For Staff</span></a>
-                                    <ul>
-                                        <li><a href="/Competitions/forStaff" id="sbExam">Competitions</a></li>
+                                         }
+                                        </li>
 
-                                    </ul>
-                                </li>
+                                        <li>
+                                            @if (User.IsInRole("Admin") || User.IsInRole("Staff"))
+                                            {
+                                                <a href="#"><i class="icon-droplet2"></i> <span>For Staff</span></a>
+                                                <ul>
+                                                    <li><a href="/Competitions/forStaff" id="sbExam">Competitions</a></li>
+                                                </ul>
+                                            }
+                                            else
+                                            {
+                                            <li class="disabled"><a href="#"><i class="icon-copy"></i> <span>For Staff</span></a></li>
+                                        }
+                                            </li>
 
-                                
 
-                        
-                              
-                            
 
-                            </ul>
+
+
+
+
+                                        </ul>
                         </div>
                     </div>
                     <!-- /main navigation -->
