@@ -1,14 +1,15 @@
 ﻿
 
 <header class="header header-1 header-desktop">
+   
     <div class="container-fluid">
         <div class="row">
             <div class="col-10 col-md-10 col-lg-10 col-xl-10 pl-0">
                 <div class="row">
                     <div class="site-branding">
                         <a class="normal_logo" href="./" rel="home">
-                            <img src="~/heli/images/LOGOHOMEpage.jpg" alt="Heli"/>
-                            
+                            <img src="~/heli/images/LOGOHOMEpage.jpg" alt="Heli" />
+
                         </a>
                     </div>
                     <nav class="main-navigation d-none d-lg-block">
@@ -19,15 +20,21 @@
                                 <li class="menu-item-has-children mega-menu">
                                     <a href="#">Home</a>
                                 </li>
-                                
-                              
-                                @*LOGIN*@
-                                <li class="menu-item-has-children">
-                                    <a href="/Login/Index">Login</a>
 
-                                 
-                               
-                            </ul>
+                                <li class="menu-item-has-children mega-menu">
+                                    <a href="/Gallery/Index">Gallery</a>
+
+
+                                @*LOGIN*@
+                                    <li class="menu-item-has-children">
+                                        <a href="/Login/Index">Login</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="#">My Profile</a></li>
+                                            <li><a href="#">Account Setting</a></li>
+                                            <li><a >----------------------------</a></li>
+                                            <li><a href="#">Logout</a></li>
+
+                                        </ul>
                         </div>
                     </nav>
                 </div>
@@ -35,23 +42,23 @@
             <div class="col-lg-2 col-md-2 col-2 header-column-icon-container">
                 <div class="header-icon header-icon-cart mini-cart d-none d-lg-block">
                     @*<div class="mini-cart__button">
-                        <span class="mini-cart-icon" data-count="0"></span>
-                    </div>*@
+                            <span class="mini-cart-icon" data-count="0"></span>
+                        </div>*@
                     @*<div class="widget-shopping-cart-content">
-                        <ul class="cart-list">
-                            <li class="empty">No products in the cart.</li>
-                        </ul>
-                    </div>*@
+                            <ul class="cart-list">
+                                <li class="empty">No products in the cart.</li>
+                            </ul>
+                        </div>*@
                 </div>
                 <div class="header-icon header-icon-search d-none d-lg-block">
                     <i class="pe-7s-search"></i>
                 </div>
                 @*<div class="header-icon header-icon-canvas menu-button d-none d-lg-block">
-                    <span></span>
-                </div>
-                <div id="page-open-mobile-menu" class="page-open-mobile-menu dark d-lg-none">
-                    <div><i></i></div>
-                </div>*@
+                        <span></span>
+                    </div>
+                    <div id="page-open-mobile-menu" class="page-open-mobile-menu dark d-lg-none">
+                        <div><i></i></div>
+                    </div>*@
             </div>
         </div>
     </div>
@@ -372,3 +379,4 @@
         </li>
     </ul>
 </div>
+
