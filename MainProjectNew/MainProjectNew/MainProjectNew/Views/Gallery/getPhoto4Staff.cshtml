@@ -109,8 +109,9 @@
                         <div class="col-sm-8">
                             <img class="mb-4" alt="" src="~/ExamImage/@Model.Item2.Path">
                         </div>
+
                         <div class="col-sm-4" style="overflow-y:scroll">
-                            <div>
+                            <div id="commentContainer">
                                 @*list comment*@
 
                                 @foreach (var item in Model.Item1)
@@ -247,24 +248,53 @@
         
         function comment() {
             url = "/Comments/postComment";
-            
-                $.ajax({
-                    type: "POST",
-                    url: url,
-                    data: $("#commentForm").serialize(),
-                    success: function (result) {
-                        if (result == "Success") {
-                            alert("Post Comment Success");
-                        } else {
-                            alert(result);
-                        }
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $("#commentForm").serialize(),
+                success: function (result) {
+                    if (result == "Success") {
+                        showNewComment();
+                    } else {
+                        alert(result);
                     }
-                });
+                }
+            });
             
+        }
+
+        function showNewComment()
+        {
+            //xoa het cac comment cu
+            $("#commentContainer").find("p").each(function (index) {
+                $(this).remove();
+            });
+
+            url = "/Comments/getCommentJSON/@Model.Item2.ExamID";
+            $.ajax({
+                type: "GET",
+                url: url,
+                success: function (result) {
+                    var data = result["Data"];
+
+                    for (var i = data.length - 1; i >= 0; i--) {
+                        showRowComment(data[i]["Name"], data[i]["Detail"]);
+                        
+                    }
+                }
+            });
+
+        }
+
+        function showRowComment(name, detail)
+        {
+            var content = "<p><span style='font-weight:bold'>" + name + " : </span><span>" + detail + "</span></p>";
+            $("#commentContainer").prepend(content);
         }
     </script>
 </body>
 </html>
+
 
 
 

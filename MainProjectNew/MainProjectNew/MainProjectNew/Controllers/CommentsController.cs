@@ -19,7 +19,7 @@ namespace MainProjectNew.Controllers
         {
             if (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Staff") || User.IsInRole("Student"))
             {
-                var comments = db.Comments.Include(c => c.User);
+                var comments = db.Comments.OrderBy(item => item.num).Include(c => c.User);
                 return View("Index", "_Layout", comments.ToList());
             }
             else
@@ -193,10 +193,7 @@ namespace MainProjectNew.Controllers
             [HttpPost]
             public ActionResult postComment([Bind(Include = "Detail,MainID")] Comment newComment)
             {
-            System.Diagnostics.Debug.WriteLine("----------------------");
-            System.Diagnostics.Debug.WriteLine(newComment.Detail);
-            System.Diagnostics.Debug.WriteLine(newComment.MainID);
-            System.Diagnostics.Debug.WriteLine("----------------------");
+            
                 string UserID = db.Users.Where(item => item.UserNick.Equals(User.Identity.Name)).Select(item => item.IDUser).FirstOrDefault();
                 newComment.UserID = UserID;
                 db.Comments.Add(newComment);
@@ -210,11 +207,11 @@ namespace MainProjectNew.Controllers
 
         public ActionResult getCommentJSON(string id)
         {
-            List<Comment> searchComment = db.Comments.Where(item => item.MainID.Equals(id)).OrderByDescending(item => item.CommentID).ToList();
-            System.Diagnostics.Debug.WriteLine("------------");
-            System.Diagnostics.Debug.WriteLine(id);
-            System.Diagnostics.Debug.WriteLine(searchComment.Count);
-            System.Diagnostics.Debug.WriteLine("----------------");
+            List<ShortComment> searchComment = db.Comments.Where(item => item.MainID.Equals(id) && item.Status == true).OrderBy(item => item.num).Select(item => new ShortComment()
+            {
+                Name = item.User.UserNick,
+                Detail = item.Detail
+            }).ToList();
             var result = new JsonResult()
             {
                 Data = searchComment

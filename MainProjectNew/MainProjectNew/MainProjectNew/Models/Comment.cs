@@ -9,7 +9,7 @@ namespace MainProjectNew.Models
     [Table("Comment")]
     public partial class Comment
     {
-        [NotMapped]
+        
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int num { get; set; }
 

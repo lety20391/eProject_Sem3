@@ -33,21 +33,19 @@ namespace MainProjectNew.Controllers
 
         public ActionResult getPhoto(string id, string exhiID)
         {
-            
+            ViewBag.ExamID = id;
+            ViewBag.ExhibitionID = exhiID;
             Exam searchExam = db.Exams.Find(id);
 
             if (!User.Identity.IsAuthenticated)
             {
-                ViewBag.ExamID = id;
-                ViewBag.ExhibitionID = exhiID;
+                
                 var objWrapper = new Tuple<Customer, Exam>(new Customer(), searchExam);
                 return View(objWrapper);
             }
             else
             {
-                ViewBag.ExamID = id;
-                ViewBag.ExhibitionID = exhiID;
-                List<Comment> listComment = db.Comments.Where(item => item.MainID.Equals(id)).ToList();
+                List<Comment> listComment = db.Comments.Where(item => item.MainID.Equals(id) && item.Status == true).OrderBy(item => item.num).ToList();
                 var objWrapper = new Tuple<List<Comment>, Exam>(listComment, searchExam);
                 return View("getPhoto4Staff", objWrapper);
             }

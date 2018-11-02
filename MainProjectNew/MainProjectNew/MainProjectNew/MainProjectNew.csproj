@@ -181,6 +181,7 @@
     <Compile Include="Models\Exam.cs" />
     <Compile Include="Models\Exhibition.cs" />
     <Compile Include="Models\ModelMain.cs" />
+    <Compile Include="Models\ShortComment.cs" />
     <Compile Include="Models\ShortExhibitionInfo.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="Models\Student.cs" />
