@@ -2,7 +2,12 @@
 @{
     ViewBag.Title = "Student Exams";
 }
-
+@using (Html.BeginForm("searchCompeExam", "Exams", FormMethod.Get))
+{
+    @Html.TextBox("str");
+    @Html.TextBox("id", new { @Value = ViewBag.CompetitionID });
+    <input type="submit" value="Search"/>
+}
 <table class="table">
     <tr>
         <th>

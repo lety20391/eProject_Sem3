@@ -414,6 +414,7 @@ namespace MainProjectNew.Controllers
         {
             if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Manager"))
             {
+                ViewBag.CompetitionID = id;
                 return View("getCompeExam", "_Layout", db.Exams.Where(item => item.IDCompetition.Equals(id)).OrderByDescending(item => item.ExamID).Take(100).ToList());
             }
             else
@@ -421,6 +422,16 @@ namespace MainProjectNew.Controllers
                 return RedirectToAction("Contact", "Home");
             }
         }
+
+        public ActionResult searchCompeExam(string id, string str)
+        {
+            System.Diagnostics.Debug.WriteLine("---------------------");
+            System.Diagnostics.Debug.WriteLine(id);
+            System.Diagnostics.Debug.WriteLine(str);
+            System.Diagnostics.Debug.WriteLine("---------------------");
+            return View();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
