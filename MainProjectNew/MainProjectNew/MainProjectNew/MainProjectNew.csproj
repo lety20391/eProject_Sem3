@@ -3097,6 +3097,7 @@
     <Content Include="Views\Gallery\getPhoto.cshtml" />
     <Content Include="Views\Competitions\forStaff.cshtml" />
     <Content Include="Views\Gallery\Index.cshtml" />
+    <Content Include="Views\Shared\Footer_layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
