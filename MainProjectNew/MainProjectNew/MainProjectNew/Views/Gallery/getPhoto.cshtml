@@ -1,10 +1,14 @@
-﻿<!doctype html>
+﻿@using MainProjectNew.Models;
+@model Tuple<Customer, Exam>
+
+
+<!doctype html>
 <html lang="en-US">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
     <link rel="shortcut icon" href="~/heli/images/favicon.ico" />
-    <title>Heli &#8211; Homepage 02 | Creative Multi-Purpose HTML Template</title>
+    <title>Heli &#8211; Project Image | Creative Multi-Purpose HTML Template</title>
 
     <link rel="stylesheet" href="~/heli/css/bootstrap.min.css" type="text/css" media="all" />
     <link rel="stylesheet" href="~/heli/css/font-awesome.min.css" type="text/css" media="all" />
@@ -14,12 +18,9 @@
     <link rel="stylesheet" href="~/heli/css/owl.theme.css" type="text/css" media="all" />
     <link rel="stylesheet" href="~/heli/css/owl.transitions.css" type="text/css" media="all" />
     <link rel="stylesheet" href="~/heli/css/prettyPhoto.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="~/heli/css/animate.min.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="~/heli/css/morphext.css" type="text/css" media="all" />
     <link rel="stylesheet" href="~/heli/css/style.css" type="text/css" media="all" />
     <link rel="stylesheet" href="~/heli/css/custom.css" type="text/css" media="all" />
-    <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i%7CRaleway:100,200,300,400,500,600,700,800,900%7CDroid+Serif:400,400italic,700" rel="stylesheet" />
-    <link href="http://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i%7CRaleway:100,200,300,400,500,600,700,800,900%7CDroid+Serif:400,400italic,700" rel="stylesheet" />
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -84,41 +85,98 @@
 
         @RenderPage("~/Views/Shared/HorizontalMenu.cshtml")
 
-        @RenderBody();
+        <div id="main">
+
+
+            <div class="section bg-dark pt-9 pb-6 mb-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5">
+                            <div class="breadcrumb">
+                                <ul class="bread_crumb">
+                                    <li>@ViewBag.ExhibitionID</li>
+                                </ul>
+                            </div>
+                            <h2 class="fz-32 mb-3 white">@Model.Item2.Student.Name</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section mb-2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <img class="mb-4" alt="" src="~/ExamImage/@Model.Item2.Path">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*thong tin Photo*@
+
+            <div class="section bg-gray pt-8 pb-8">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <h2 class="fz-24 mb-2">ABOUT THE PHOTO</h2>
+                            <p>@Model.Item2.Quotation</p>
+                            <p>@Model.Item2.Story</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="portfolio-info">
+                                <ul>
+                                    <li><span>File:</span> @Model.Item2.Path</li>
+                                    <li><span>Student:</span> @Model.Item2.Student.Name</li>
+                                    <li><span>Price:</span> @Model.Item2.Price</li>
+                                    <li><input class="btn btn-rounded btn-dark" type="button" value="BUY"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*thong tin Photo*@
+        </div>
 
         <footer class="footer">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-7 col-md-12">
-
-                        @*<img src="~/heli/images/logo-home.jpg" alt="Heli" />
-                        <img src="~/heli/images/logo.svg" alt="Heli" />*@
+                        <img src="~/heli/images/logo2.svg" alt="Heli" />
                         <div class="office">
                             <p><i class="pe-7s-call"></i> (61 2) 9251 5600 </p>
-                            <p><i class="pe-7s-mail-open-file"></i> institute@gmail.com</p>
-                            <p><i class="pe-7s-map-2"></i> No.200 Josecph, India 10020</p>
+                            <p><i class="pe-7s-mail-open-file"></i> email@domain.com</p>
+                            <p><i class="pe-7s-map-2"></i> No.200 Josecph, Canada 10020</p>
                         </div>
                         <div class="mb-5 d-block d-md-block d-lg-none"></div>
                     </div>
                     <div class="col-lg-2 col-md-6">
-                        @*<h3 class="widget-title uppercase">Institute</h3>*@
-                       
+                        <h3 class="widget-title uppercase">Company</h3>
+                        <ul class="menu">
+                            <li><a href="about-us.html">About us</a></li>
+                            <li><a href="portfolio.html">Portfolio</a></li>
+                            <li><a href="contact-us.html">Contact us</a></li>
+                            <li><a href="faq.html">FAQ</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                        </ul>
                         <div class="mb-5 d-block d-md-block d-lg-none"></div>
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <h3 class="widget-title uppercase">News</h3>
                         <ul class="widget-recent-entries">
                             <li>
-                                <a >Beautiful paintings</a>
+                                <a href="blog-detail.html">Beautiful Typography</a>
                             </li>
                             <li>
-                                <a >Design Process</a>
+                                <a href="blog-detail.html">Responsive Design Process</a>
                             </li>
                             <li>
-                                <a >A Little Journey</a>
+                                <a href="blog-detail.html">A Little Journey</a>
                             </li>
                             <li>
-                                <a >Powerful Workflow Tips</a>
+                                <a href="blog-detail.html">Powerful Workflow Tips</a>
                             </li>
                         </ul>
                         <div class="mb-5 d-block d-md-block d-lg-none"></div>
@@ -126,16 +184,18 @@
                 </div>
             </div>
         </footer>
+
         <div class="copyright text-center">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12">
-                        Made with <i class="pe-7s-like"></i> by <a target="_blank" href="#">art</a> -
-                        Developed by <a target="_blank" href="#">Aptech</a>
+                        Made with <i class="pe-7s-like"></i> by <a target="_blank" href="#">ThemeMove</a> -
+                        Developed by <a target="_blank" href="#">TK-Themes</a>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 
     <a id="backtotop" class="fa fa-angle-up circle" href="javascript:void(0)"></a>
@@ -145,25 +205,14 @@
     <script src="~/heli/js/jquery-migrate.min.js"></script>
     <script src="~/heli/js/bootstrap.min.js"></script>
     <script src="~/heli/js/modernizr-2.7.1.min.js"></script>
-    <script src="~/heli/js/imagesloaded.pkgd.min.js"></script>
-    <script src="~/heli/js/isotope.pkgd.min.js"></script>
-    <script src="~/heli/js/packery-mode.pkgd.min.js"></script>
-    <script src="~/heli/js/jquery.justifiedGallery.min.js"></script>
-    <script src="~/heli/js/jquery.isotope.init.js"></script>
     <script src="~/heli/js/jquery.sidr.min.js"></script>
     <script src="~/heli/js/jquery.countTo.js"></script>
     <script src="~/heli/js/owl.carousel.min.js"></script>
     <script src="~/heli/js/jquery.prettyPhoto.js"></script>
     <script src="~/heli/js/headroom.min.js"></script>
     <script src="~/heli/js/jQuery.headroom.js"></script>
-    <script src="~/heli/js/morphext.min.js"></script>
-    <script src="~/heli/js/bootstrap-progressbar.min.js"></script>
     <script src="~/heli/js/waypoints.min.js"></script>
     <script src="~/heli/js/script.js"></script>
-    
-
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
-    }
 </body>
 </html>
+
