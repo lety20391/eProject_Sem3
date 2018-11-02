@@ -266,27 +266,34 @@ values
 
 go
 
-INSERT INTO [dbo].Exam ([Quotation],[Story],[IDCompetition],[IDStudent],[ChangeDescription],[Price],[Path], [Status])
+INSERT INTO [dbo].Exhibition([Detail],[Country], [StartDate], [EndDate], [Condition], [Quantity])
+values 
+	('Ex in VN', 'Vietnamese', '2018-12-12 12:00:00.000', '2019-1-1 12:00:00.000', 'Mark', 10),
+	('Ex in Lao', 'Lao', '2018-12-12 12:00:00.000', '2019-1-1 12:00:00.000', 'Good', 20)
+
+	go
+
+INSERT INTO [dbo].Exam ([Quotation],[Story],[IDCompetition],[IDStudent],[ChangeDescription],[Price],[Path], [Status], [IDExhibition])
 values
-	('Quo1', 'Story1', 'COMPETITION1','STUDENT1', 'DES1', 100, '1.jpg' ,1),
-	('Quo2', 'Story2', 'COMPETITION1','STUDENT1', 'DES2', 100, '2.jpg', 1),
-	('Quo3', 'Story3', 'COMPETITION1','STUDENT2', 'DES3', 100, '3.jpg', 1),
-	('Quo4', 'Story4', 'COMPETITION1','STUDENT1', 'DES4', 100, '4.jpg', 1),
-	('Quo5', 'Story5', 'COMPETITION1','STUDENT2', 'DES5', 100, '5.jpg', 1),
-	('Quo6', 'Story6', 'COMPETITION1','STUDENT1', 'DES6', 100, '6.jpg', 1),
-	('Quo7', 'Story7', 'COMPETITION1','STUDENT2', 'DES7', 100, '7.jpg', 1),
-	('Quo8', 'Story8', 'COMPETITION1','STUDENT1', 'DES8', 100, '8.jpg', 1),
-	('Quo9', 'Story9', 'COMPETITION1','STUDENT2', 'DES9', 100, '9.jpg', 1),
-	('Quo10', 'Story10', 'COMPETITION2','STUDENT1', 'DES10', 100, '10.jpg', 1),
-	('Quo11', 'Story11', 'COMPETITION2','STUDENT1', 'DES11', 100, '11.jpg', 1),
-	('Quo12', 'Story12', 'COMPETITION2','STUDENT1', 'DES12', 100, '12.jpg', 1),
-	('Quo13', 'Story13', 'COMPETITION2','STUDENT2', 'DES13', 100, '13.jpg', 1),
-	('Quo14', 'Story14', 'COMPETITION2','STUDENT1', 'DES14', 100, '14.jpg', 1),
-	('Quo15', 'Story15', 'COMPETITION2','STUDENT2', 'DES15', 100, '15.jpg', 1),
-	('Quo16', 'Story16', 'COMPETITION2','STUDENT1', 'DES16', 100, '16.jpg', 1),
-	('Quo17', 'Story17', 'COMPETITION2','STUDENT2', 'DES17', 100, '17.jpg', 1),
-	('Quo18', 'Story18', 'COMPETITION2','STUDENT1', 'DES18', 100, '18.jpg', 1),
-	('Quo19', 'Story19', 'COMPETITION2','STUDENT2', 'DES19', 100, '19.jpg', 1),
-	('Quo20', 'Story20', 'COMPETITION2','STUDENT1', 'DES20', 100, '20.jpg', 1)
+	('Quo1', 'Story1', 'COMPETITION1','STUDENT1', 'DES1', 100, '1.jpg' ,1 ,'EXHIBITION1'),
+	('Quo2', 'Story2', 'COMPETITION1','STUDENT1', 'DES2', 100, '2.jpg', 1 ,'EXHIBITION1'),
+	('Quo3', 'Story3', 'COMPETITION1','STUDENT2', 'DES3', 100, '3.jpg', 1 ,'EXHIBITION1'),
+	('Quo4', 'Story4', 'COMPETITION1','STUDENT1', 'DES4', 100, '4.jpg', 1 ,'EXHIBITION1'),
+	('Quo5', 'Story5', 'COMPETITION1','STUDENT2', 'DES5', 100, '5.jpg', 1 ,'EXHIBITION1'),
+	('Quo6', 'Story6', 'COMPETITION1','STUDENT1', 'DES6', 100, '6.jpg', 1 ,'EXHIBITION1'),
+	('Quo7', 'Story7', 'COMPETITION1','STUDENT2', 'DES7', 100, '7.jpg', 1 ,'EXHIBITION1'),
+	('Quo8', 'Story8', 'COMPETITION1','STUDENT1', 'DES8', 100, '8.jpg', 1 ,'EXHIBITION1'),
+	('Quo9', 'Story9', 'COMPETITION1','STUDENT2', 'DES9', 100, '9.jpg', 1 ,'EXHIBITION1'),
+	('Quo10', 'Story10', 'COMPETITION2','STUDENT1', 'DES10', 100, '10.jpg', 1 ,'EXHIBITION2'),
+	('Quo11', 'Story11', 'COMPETITION2','STUDENT1', 'DES11', 100, '11.jpg', 1 ,'EXHIBITION2'),
+	('Quo12', 'Story12', 'COMPETITION2','STUDENT1', 'DES12', 100, '12.jpg', 1 ,'EXHIBITION2'),
+	('Quo13', 'Story13', 'COMPETITION2','STUDENT2', 'DES13', 100, '13.jpg', 1 ,'EXHIBITION2'),
+	('Quo14', 'Story14', 'COMPETITION2','STUDENT1', 'DES14', 100, '14.jpg', 1 ,'EXHIBITION2'),
+	('Quo15', 'Story15', 'COMPETITION2','STUDENT2', 'DES15', 100, '15.jpg', 1 ,'EXHIBITION2'),
+	('Quo16', 'Story16', 'COMPETITION2','STUDENT1', 'DES16', 100, '16.jpg', 1 ,'EXHIBITION2'),
+	('Quo17', 'Story17', 'COMPETITION2','STUDENT2', 'DES17', 100, '17.jpg', 1 ,'EXHIBITION2'),
+	('Quo18', 'Story18', 'COMPETITION2','STUDENT1', 'DES18', 100, '18.jpg', 1 ,'EXHIBITION2'),
+	('Quo19', 'Story19', 'COMPETITION2','STUDENT2', 'DES19', 100, '19.jpg', 1 ,'EXHIBITION2'),
+	('Quo20', 'Story20', 'COMPETITION2','STUDENT1', 'DES20', 100, '20.jpg', 1 ,'EXHIBITION2')
 go
 
