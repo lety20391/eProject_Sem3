@@ -3090,11 +3090,13 @@
     <Content Include="Views\HomePage\Index.cshtml" />
     <Content Include="Views\Shared\NguoiDungLayOut.cshtml" />
     <Content Include="Views\Shared\HorizontalMenu.cshtml" />
+    <Content Include="Views\Exams\getCompeExam.cshtml" />
+    <Content Include="Views\Home\StudentErr.cshtml" />
+    <Content Include="Views\Gallery\getGallery.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ExamImage\" />
-    <Folder Include="Views\Gallery\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
