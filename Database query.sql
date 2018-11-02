@@ -4,9 +4,9 @@ GO
 CREATE DATABASE [ePrjNewDB]
  CONTAINMENT = NONE
  ON  PRIMARY 
-( NAME = N'ePrjNewDB', FILENAME = N'E:\Aptech\Project Sem 3\Database\ePrjNewDB.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+( NAME = N'ePrjNewDB', FILENAME = N'E:\Aptech\PRJ3\DATABASE SEM3 PROJECT\ePrjNewDB.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
  LOG ON 
-( NAME = N'ePrjNewDB_log', FILENAME = N'E:\Aptech\Project Sem 3\Database\ePrjNewDB_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+( NAME = N'ePrjNewDB_log', FILENAME = N'E:\Aptech\PRJ3\DATABASE SEM3 PROJECT\ePrjNewDB_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
 GO
 
 use ePrjNewDB
@@ -235,11 +235,58 @@ add CONSTRAINT UC_Nick UNIQUE (UserNick)
 INSERT INTO [dbo].[User]
            ([UserNick]
            ,[UserPass]
-           ,[Role])
+           ,[Role]
+		   ,[Real_ID])
      VALUES
-           ('Admin', 'abc123', 'Admin'),
-		   ('Dat Le', 'abc123', 'Staff;Admin'),
-		   ('Duy Shit', 'abc123', 'Manager;Admin'),
-		   ('Duyen Tran Truong', 'abc123', 'Staff;Admin')
+           ('Admin', 'abc123', 'Admin', ''),
+		   ('Dat Le', 'abc123', 'Staff;Admin', 'STAFF1'),
+		   ('Duy Shit', 'abc123', 'Manager;Admin', 'STAFF2'),
+		   ('Duyen Tran Truong', 'abc123', 'Staff;Admin', 'STAFF3'),
+		   ('Min', 'abc123', 'Student', 'STUDENT1'),
+		   ('Congy', 'abc123', 'Student', 'STUDENT2')
 GO
+
+INSERT INTO [DBO].Student ([Name],[Gender],[DOB],[Phone],[Address],[Admission])
+values 
+	('Vitamin', 1, '1996-10-10 12:00:00.000', '0988888888', 'HCM', 'Paid'),
+	('Congy', 0, '1995-1-1 12:00:00.000', '0977777777', 'Q7', 'not Paid')
+go
+
+INSERT INTO [DBO].Staff ([Name],[Gender],[DOB],[Phone],[Address],[Status],[Subject])
+values 
+	('Lo Co Do', 1, '1980-1-1 12:00:00.000', '0988888888', 'HCM', 1, 'Math'),
+	('Duy bue due', 1, '1990-1-1 12:00:00.000', '0977777777', 'Q12', 1, 'Literature'),
+	('Duyen dep trai', 1, '1990-1-1 12:00:00.000', '0966666666', 'HCM', 1, 'Art')
+go
+
+INSERT INTO [dbo].Competition([Detail], [StartDate], [EndDate], [Condition])
+values
+	('Creative Comp', '2018-12-12 12:00:00.000', '2019-1-1 12:00:00.000', 'Mark'),
+	('Art Comp', '2018-12-12 12:00:00.000', '2019-1-1 12:00:00.000', 'Good')
+
+go
+
+INSERT INTO [dbo].Exam ([Quotation],[Story],[IDCompetition],[IDStudent],[ChangeDescription],[Price],[Path], [Status])
+values
+	('Quo1', 'Story1', 'COMPETITION1','STUDENT1', 'DES1', 100, '1.jpg' ,1),
+	('Quo2', 'Story2', 'COMPETITION1','STUDENT1', 'DES2', 100, '2.jpg', 1),
+	('Quo3', 'Story3', 'COMPETITION1','STUDENT2', 'DES3', 100, '3.jpg', 1),
+	('Quo4', 'Story4', 'COMPETITION1','STUDENT1', 'DES4', 100, '4.jpg', 1),
+	('Quo5', 'Story5', 'COMPETITION1','STUDENT2', 'DES5', 100, '5.jpg', 1),
+	('Quo6', 'Story6', 'COMPETITION1','STUDENT1', 'DES6', 100, '6.jpg', 1),
+	('Quo7', 'Story7', 'COMPETITION1','STUDENT2', 'DES7', 100, '7.jpg', 1),
+	('Quo8', 'Story8', 'COMPETITION1','STUDENT1', 'DES8', 100, '8.jpg', 1),
+	('Quo9', 'Story9', 'COMPETITION1','STUDENT2', 'DES9', 100, '9.jpg', 1),
+	('Quo10', 'Story10', 'COMPETITION2','STUDENT1', 'DES10', 100, '10.jpg', 1),
+	('Quo11', 'Story11', 'COMPETITION2','STUDENT1', 'DES11', 100, '11.jpg', 1),
+	('Quo12', 'Story12', 'COMPETITION2','STUDENT1', 'DES12', 100, '12.jpg', 1),
+	('Quo13', 'Story13', 'COMPETITION2','STUDENT2', 'DES13', 100, '13.jpg', 1),
+	('Quo14', 'Story14', 'COMPETITION2','STUDENT1', 'DES14', 100, '14.jpg', 1),
+	('Quo15', 'Story15', 'COMPETITION2','STUDENT2', 'DES15', 100, '15.jpg', 1),
+	('Quo16', 'Story16', 'COMPETITION2','STUDENT1', 'DES16', 100, '16.jpg', 1),
+	('Quo17', 'Story17', 'COMPETITION2','STUDENT2', 'DES17', 100, '17.jpg', 1),
+	('Quo18', 'Story18', 'COMPETITION2','STUDENT1', 'DES18', 100, '18.jpg', 1),
+	('Quo19', 'Story19', 'COMPETITION2','STUDENT2', 'DES19', 100, '19.jpg', 1),
+	('Quo20', 'Story20', 'COMPETITION2','STUDENT1', 'DES20', 100, '20.jpg', 1)
+go
 
