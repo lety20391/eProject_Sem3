@@ -23,16 +23,33 @@ namespace MainProjectNew.Controllers
             return View(db.Exams.Where(item => item.IDExhibition.Equals(id)).ToList());
         }
 
-        public ActionResult buyPhoto(string id, string exhiID)
+        public ActionResult getPhoto(string id, string exhiID)
         {
             ViewBag.ExamID = id;
             ViewBag.ExhibitionID = exhiID;
-
-            System.Diagnostics.Debug.WriteLine("---------------------------------");
-            System.Diagnostics.Debug.WriteLine(id);
-            System.Diagnostics.Debug.WriteLine(exhiID);
-            System.Diagnostics.Debug.WriteLine("---------------------------------");
-            return View();
+            Exam searchExam = db.Exams.Find(id);
+            var objWrapper = new Tuple<Customer, Exam>(new Customer(), searchExam);
+            return View(objWrapper);
         }
+
+        [HttpPost]
+        public ActionResult getPhoto(Customer newCustomer)
+        {
+            db.Customers.Add(newCustomer);
+            db.SaveChanges();
+
+            Customer searchCustomer = db.Customers.Where(item => item.Name.Equals(newCustomer.Name) && item.Phone.Equals(newCustomer.Phone) && item.Address.Equals(newCustomer.Address)).First();
+            Submit newSubmit = new Submit();
+            newSubmit.Entity1ID = searchCustomer.CustomerID;
+            newSubmit.Entity2ID = newCustomer.IDExam;
+            newSubmit.Type = "Customer-Exam";
+            newSubmit.time = DateTime.Now;
+
+            db.Submits.Add(newSubmit);
+            db.SaveChanges();
+
+            return Content("Success");
+        }
+
     }
 }
