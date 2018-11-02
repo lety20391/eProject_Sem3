@@ -400,11 +400,11 @@ namespace MainProjectNew.Controllers
         //    return View("searchStudentExam", "_Layout");
         //}
 
-        public ActionResult searchStudentExam(string id)
+        public ActionResult searchStudentExam(string str)
         {
             string studID = db.Users.Where(item => item.UserNick.Equals(User.Identity.Name)).Select(item => item.Real_ID).First();
 
-            List<Exam> searchExam = db.Exams.Where(item => item.IDStudent.Equals(studID) && (item.Quotation.Contains(id) || item.Story.Contains(id) )).OrderByDescending(item => item.ExamID).Take(100).ToList();
+            List<Exam> searchExam = db.Exams.Where(item => item.IDStudent.Equals(studID) && (item.Exhibition.Detail.Contains(str) || (item.Competition.Detail.Contains(str)))).OrderByDescending(item => item.ExamID).Take(100).ToList();
 
             return View("searchStudentExam", "_Layout", searchExam);
         }
@@ -422,14 +422,12 @@ namespace MainProjectNew.Controllers
                 return RedirectToAction("Contact", "Home");
             }
         }
-
+        
         public ActionResult searchCompeExam(string id, string str)
         {
-            System.Diagnostics.Debug.WriteLine("---------------------");
-            System.Diagnostics.Debug.WriteLine(id);
-            System.Diagnostics.Debug.WriteLine(str);
-            System.Diagnostics.Debug.WriteLine("---------------------");
-            return View();
+            List<Exam> searchExam = db.Exams.Where(item => item.IDCompetition.Equals(id) && (item.Student.Name.Contains(str))).OrderByDescending(item => item.ExamID).Take(100).ToList();
+
+            return View("searchStudentExam", "_Layout", searchExam);
         }
 
         protected override void Dispose(bool disposing)
