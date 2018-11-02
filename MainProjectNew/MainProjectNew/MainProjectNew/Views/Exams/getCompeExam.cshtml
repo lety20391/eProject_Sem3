@@ -4,17 +4,15 @@
 }
 @using (Html.BeginForm("searchCompeExam", "Exams", FormMethod.Get))
 {
-    @Html.TextBox("str");
-    @Html.TextBox("id", new { @Value = ViewBag.CompetitionID });
-    <input type="submit" value="Search"/>
+    <p style="font-weight:600">Search by Student Name</p>
+    <p>@Html.TextBox("str")  <input type="submit" value="Search" /></p>
+    <p hidden>@Html.TextBox("id", new { @Value = ViewBag.CompetitionID })</p>
+   
 }
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Competition.CompetitionID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Competition.Detail)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Exhibition.Detail)
@@ -35,12 +33,6 @@
             @Html.DisplayNameFor(model => model.Mark)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ChangeDescription)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.MoneyReturn)
         </th>
         <th>
@@ -57,9 +49,6 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Competition.CompetitionID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Competition.Detail)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Exhibition.Detail)
@@ -79,12 +68,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Mark)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ChangeDescription)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.MoneyReturn)
