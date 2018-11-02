@@ -3093,6 +3093,7 @@
     <Content Include="Views\Exams\getCompeExam.cshtml" />
     <Content Include="Views\Home\StudentErr.cshtml" />
     <Content Include="Views\Gallery\getGallery.cshtml" />
+    <Content Include="Views\Gallery\buyPhoto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

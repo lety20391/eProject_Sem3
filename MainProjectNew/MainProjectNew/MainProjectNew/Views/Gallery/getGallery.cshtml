@@ -692,7 +692,7 @@
                                                     <div class="overlay"></div>
                                                     <div class="popup">
                                                         <div class="popup-inner">
-                                                            <a class="prettyphoto" data-rel="prettyPhoto[gallery]" href="images/project/project_1920x700.jpg">
+                                                            <a class="prettyphoto" data-rel="prettyPhoto[gallery]" href="~/ExamImage/@item.Path">
                                                                 <i class="pe-7s-search"></i>
                                                             </a>
                                                         </div>
@@ -700,7 +700,7 @@
                                                 </div>
                                             </div>
                                             <div class="content">
-                                                <h3><a href="portfolio-detail.html">@item.Quotation</a></h3>
+                                                <h3><a href='@("/Gallery/buyPhoto/" + item.ExamID + "?exhiID=" + item.IDExhibition)'>@item.Quotation</a></h3>
                                                 <div class="cate"><a href="#">@item.Student.Name</a></div>
                                             </div>
                                         </div>
