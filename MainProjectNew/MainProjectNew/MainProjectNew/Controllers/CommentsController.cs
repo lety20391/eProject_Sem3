@@ -206,6 +206,26 @@ namespace MainProjectNew.Controllers
 
         //postcomment
 
+        //get list Comment in JSON format
+
+        public ActionResult getCommentJSON(string id)
+        {
+            List<Comment> searchComment = db.Comments.Where(item => item.MainID.Equals(id)).OrderByDescending(item => item.CommentID).ToList();
+            System.Diagnostics.Debug.WriteLine("------------");
+            System.Diagnostics.Debug.WriteLine(id);
+            System.Diagnostics.Debug.WriteLine(searchComment.Count);
+            System.Diagnostics.Debug.WriteLine("----------------");
+            var result = new JsonResult()
+            {
+                Data = searchComment
+            };
+
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        //get list Comment in JSON format
+
+
 
 
         protected override void Dispose(bool disposing)
