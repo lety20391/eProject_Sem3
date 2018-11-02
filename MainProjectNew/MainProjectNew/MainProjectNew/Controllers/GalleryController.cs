@@ -13,7 +13,15 @@ namespace MainProjectNew.Controllers
         ModelMain db = new ModelMain();
         public ActionResult Index()
         {
-            return View();
+            List<ShortExhibitionInfo> shortInfo = db.Exhibitions.Select(item => new ShortExhibitionInfo() {
+                ExhibitionID = item.ExhibitionID,
+                Detail = item.Detail,
+                Country = item.Country,
+                StartDate = item.StartDate,
+                firstImagePath = db.Exams.Where(item2 => item2.IDExhibition.Equals(item.ExhibitionID)).Select(item2 => item2.Path).FirstOrDefault()
+
+            }).ToList();
+            return View(shortInfo);
         }
 
         public ActionResult getGallery(string id)

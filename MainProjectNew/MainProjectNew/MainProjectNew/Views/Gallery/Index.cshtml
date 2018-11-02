@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MainProjectNew.Models.Exam>
+﻿@model IEnumerable<MainProjectNew.Models.ShortExhibitionInfo>
 <!doctype html>
 <html lang="en-US">
 <head>
@@ -684,24 +684,24 @@
 
                                     @foreach (var item in Model)
                                     {
-                                        
+
                                         <div class="portfolio-item grid-item masonry-item">
                                             <div class="media">
-                                                <img src="~/ExamImage/@item.Path" alt="" />
+                                                <img src="~/ExamImage/@item.firstImagePath" alt="" />
                                                 <div class="overlay-wrapper">
                                                     <div class="overlay"></div>
                                                     <div class="popup">
                                                         <div class="popup-inner">
-                                                            <a class="prettyphoto" data-rel="prettyPhoto[gallery]" href="~/ExamImage/@item.Path">
-                                                                <i class="pe-7s-search"></i>
+                                                            <a href='@("/Gallery/getGallery/" + item.ExhibitionID)'>
+                                                                @item.Detail
                                                             </a>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="content">
-                                                <h3><a href='@("/Gallery/getPhoto/" + item.ExamID + "?exhiID=" + item.IDExhibition)'>@item.Quotation</a></h3>
-                                                <div class="cate"><a href="@("/Gallery/getPhoto/" + item.ExamID + "?exhiID=" + item.IDExhibition)">@item.Student.Name</a></div>
+                                                <h3><a href='@("/Gallery/getGallery/" + item.ExhibitionID)'>@item.Country</a></h3>
+                                                <div class="cate"><a href="@("/Gallery/getGallery/" + item.ExhibitionID)">@item.StartDate</a></div>
                                             </div>
                                         </div>
 
@@ -799,6 +799,6 @@
     <script src="~/heli/js/jQuery.headroom.js"></script>
     <script src="~/heli/js/waypoints.min.js"></script>
     <script src="~/heli/js/script.js"></script>
-    
+
 </body>
 </html>

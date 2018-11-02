@@ -181,6 +181,7 @@
     <Compile Include="Models\Exam.cs" />
     <Compile Include="Models\Exhibition.cs" />
     <Compile Include="Models\ModelMain.cs" />
+    <Compile Include="Models\ShortExhibitionInfo.cs" />
     <Compile Include="Models\Staff.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Models\Submit.cs" />
@@ -3095,6 +3096,7 @@
     <Content Include="Views\Gallery\getGallery.cshtml" />
     <Content Include="Views\Gallery\getPhoto.cshtml" />
     <Content Include="Views\Competitions\forStaff.cshtml" />
+    <Content Include="Views\Gallery\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
