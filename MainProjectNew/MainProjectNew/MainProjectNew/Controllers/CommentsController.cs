@@ -188,6 +188,26 @@ namespace MainProjectNew.Controllers
 
         }
 
+        //postcomment
+
+            [HttpPost]
+            public ActionResult postComment([Bind(Include = "Detail,MainID")] Comment newComment)
+            {
+            System.Diagnostics.Debug.WriteLine("----------------------");
+            System.Diagnostics.Debug.WriteLine(newComment.Detail);
+            System.Diagnostics.Debug.WriteLine(newComment.MainID);
+            System.Diagnostics.Debug.WriteLine("----------------------");
+                string UserID = db.Users.Where(item => item.UserNick.Equals(User.Identity.Name)).Select(item => item.IDUser).FirstOrDefault();
+                newComment.UserID = UserID;
+                db.Comments.Add(newComment);
+                db.SaveChanges();
+                return Content("Success");
+            }
+
+        //postcomment
+
+
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
