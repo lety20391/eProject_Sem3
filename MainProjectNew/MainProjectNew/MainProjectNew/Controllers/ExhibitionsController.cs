@@ -183,6 +183,19 @@ namespace MainProjectNew.Controllers
 
         }
 
+        public ActionResult forStaff()
+        {
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Manager"))
+            {
+                var exhibition = db.Exhibitions.ToList();
+                return View("forStaff", "_Layout", exhibition.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

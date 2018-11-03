@@ -429,6 +429,25 @@ namespace MainProjectNew.Controllers
             return View("searchStudentExam", "_Layout", searchExam);
         }
 
+
+        //exhibition
+        public ActionResult getExhiExam(string id)
+        {
+            if (User.IsInRole("Admin") || User.IsInRole("Staff") || User.IsInRole("Manager"))
+            {
+                //List<Exam> searchExam = db.Exams.Where(
+                //        item => item.Student.ClassID.Equals(db.Staffs.Where(
+                //            item2 => item2.StaffID.Equals("ID")).Select(item2 => item2.ClassID).First()
+                //).Take(100).ToList();
+                //ViewBag.ExhibitionID = id;
+                //return View("getExhiExam", "_Layout", searchExam );
+                return Content("Under developed");
+            }
+            else
+            {
+                return RedirectToAction("Contact", "Home");
+            }
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
