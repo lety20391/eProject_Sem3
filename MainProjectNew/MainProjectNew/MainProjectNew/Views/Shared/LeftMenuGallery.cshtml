@@ -34,9 +34,29 @@
         <nav class="main-navigation d-none d-lg-block">
             <div class="primary-menu">
                 <ul class="main-menu">
+                    <li><span style="font-weight:bold">@Context.User.Identity.Name</span></li>
                     <li class="menu-item-has-children mega-menu">
                         <a href="/HomePage/Index">Home</a>
 
+                    </li>
+
+                    <li class="menu-item-has-children">
+                        <a href="/Gallery/Index">Gallery</a>
+                    </li>
+
+                    <li class="menu-item-has-children">
+                        <a href="#">Account</a>
+                        <ul class="sub-menu">
+                            <li><a href="/Login/Index">Login</a></li>
+                            <li><a href="/Login/Logout">Logout</a></li>
+
+                        </ul>
+                    </li>
+
+
+                    <li class="menu-item-has-children">
+                        <a href="/Login/AdminCP">Manage</a>
+                        
                     </li>
 
                 </ul>
@@ -60,16 +80,19 @@
         </div>
     </div>
     <ul class="mobile-menu">
+
         <li>
             <a href="/HomePage/Index">
                 <span class="menu-item-title">Home</span>
             </a>
         </li>
+
         <li>
             <a href="/Gallery/Index">
                 <span class="menu-item-title">Gallery</span>
             </a>
         </li>
+
         <li>
             <a href="#">
                 <span class="menu-item-title">Account</span>
@@ -87,6 +110,13 @@
                     </a>
                 </li>
             </ul>
+        </li>
+
+
+        <li>
+            <a href="/Login/AdminCP">
+                <span class="menu-item-title">Manage</span>
+            </a>
         </li>
 
     </ul>

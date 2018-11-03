@@ -23,9 +23,9 @@
 
                                 <li class="menu-item-has-children mega-menu">
                                     <a href="/Gallery/Index">Gallery</a>
+                                </li>
 
-
-                                    @*LOGIN*@
+                                @*LOGIN*@
                                 <li class="menu-item-has-children">
                                     <a href="#">Account</a>
                                     <ul class="sub-menu">
@@ -34,27 +34,22 @@
                                         <li><a href="/Login/Logout">Logout</a></li>
 
                                     </ul>
-                        </div>
+                                </li>
+
+                                <li class="menu-item-has-children mega-menu">
+                                    <a href="/Login/AdminCP">Manage</a>
+                                </li>
+</div>
                     </nav>
                 </div>
             </div>
             <div class="col-lg-2 col-md-2 col-2 header-column-icon-container">
+
                 <div class="header-icon header-icon-cart mini-cart d-none d-lg-block">
-                    <div class="mini-cart__button">
-                        <span class="mini-cart-icon" data-count="0"></span>
-                    </div>
-                    <div class="widget-shopping-cart-content">
-                        <ul class="cart-list">
-                            <li class="empty">No products in the cart.</li>
-                        </ul>
-                    </div>
+                    <span style="font-weight:bold">@Context.User.Identity.Name</span>
                 </div>
-                <div class="header-icon header-icon-search d-none d-lg-block">
-                    <i class="pe-7s-search"></i>
-                </div>
-                <div class="header-icon header-icon-canvas menu-button d-none d-lg-block">
-                    <span></span>
-                </div>
+
+
                 <div class="page-open-mobile-menu dark d-lg-none" id="page-open-mobile-menu">
                     <div><i></i></div>
                 </div>
@@ -100,10 +95,16 @@
                     <a href="/Login/Logout">
                         <span class="menu-item-title">Logout</span>
                     </a>
-                    
+
                 </li>
-                
+
             </ul>
+        </li>
+        <li>
+            <a href="/Login/AdminCP">
+                <span class="menu-item-title">Manage</span>
+            </a>
+
         </li>
     </ul>
 </div>

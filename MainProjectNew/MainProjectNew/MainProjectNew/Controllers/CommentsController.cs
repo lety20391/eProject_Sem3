@@ -196,6 +196,7 @@ namespace MainProjectNew.Controllers
             
                 string UserID = db.Users.Where(item => item.UserNick.Equals(User.Identity.Name)).Select(item => item.IDUser).FirstOrDefault();
                 newComment.UserID = UserID;
+                newComment.Status = true;
                 db.Comments.Add(newComment);
                 db.SaveChanges();
                 return Content("Success");

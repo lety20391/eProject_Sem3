@@ -384,11 +384,11 @@
                                         {
                                         <li class="disabled"><a href="#"><i class="icon-copy"></i> <span>For Student</span></a></li>
 
-                                        }
+                                    }
                                         </li>
 
                                         <li>
-                                            @if ( User.IsInRole("Staff"))
+                                            @if (User.IsInRole("Staff"))
                                             {
                                                 <a href="#"><i class="icon-droplet2"></i> <span>For Staff</span></a>
                                                 <ul>
@@ -400,8 +400,9 @@
                                             {
                                             <li class="disabled"><a href="#"><i class="icon-copy"></i> <span>For Staff</span></a></li>
                                         }
-                                        </li>
-                                        <li><a href="/login/logout"><i class="icon-switch2"></i>Logout</a></li>
+                                            </li>
+                                            <li><a href="/HomePage/Index"><i class="icon-switch2"></i>Return to MainPage</a></li>
+                                            <li><a href="/login/logout"><i class="icon-switch2"></i>Logout</a></li>
 
                                         </ul>
                         </div>
