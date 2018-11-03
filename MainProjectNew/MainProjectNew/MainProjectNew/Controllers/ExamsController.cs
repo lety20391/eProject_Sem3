@@ -120,6 +120,8 @@ namespace MainProjectNew.Controllers
                 ViewBag.IDCompetition = new SelectList(db.Competitions, "CompetitionID", "Detail", exam.IDCompetition);
                 ViewBag.IDExhibition = new SelectList(db.Exhibitions, "ExhibitionID", "Detail", exam.IDExhibition);
                 ViewBag.IDStudent = new SelectList(db.Students, "StudentID", "Name", exam.IDStudent);
+                if(User.IsInRole("Staff"))
+                    return View("Edit4Staff", "_Layout", exam);
                 return View("Edit", "_Layout", exam);
 
             }

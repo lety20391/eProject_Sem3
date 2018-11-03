@@ -79,9 +79,8 @@
                 @Html.DisplayFor(modelItem => item.Improvement)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ExamID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ExamID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ExamID })
+                @Html.ActionLink("Give Mark", "Edit", new { id = item.ExamID }) 
+                
             </td>
         </tr>
     }

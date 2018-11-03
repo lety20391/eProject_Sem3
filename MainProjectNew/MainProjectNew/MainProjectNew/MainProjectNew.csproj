@@ -3102,6 +3102,7 @@
     <Content Include="Views\Gallery\getPhoto4Staff.cshtml" />
     <Content Include="Views\Shared\Footer_layout.cshtml" />
     <Content Include="Views\Shared\LeftMenuGallery.cshtml" />
+    <Content Include="Views\Exams\Edit4Staff.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
