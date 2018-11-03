@@ -201,7 +201,7 @@ namespace MainProjectNew.Controllers
 
         public ActionResult forStudent()
         {
-            var competitions = db.Competitions.Include(c => c.Award);
+            var competitions = db.Competitions.Include(c => c.Award).Where(item => item.EndDate > DateTime.Now);
             return View("forStudent", "_Layout", competitions.ToList());
         }
 

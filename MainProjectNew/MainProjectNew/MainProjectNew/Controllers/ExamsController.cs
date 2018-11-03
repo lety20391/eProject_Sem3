@@ -289,13 +289,10 @@ namespace MainProjectNew.Controllers
             if (User.IsInRole("Student"))
             {
                 
-                List<Competition> searchComp = db.Competitions.Where(item => item.CompetitionID.Equals(id)).ToList();
+                List<Competition> searchComp = db.Competitions.Where(item => item.CompetitionID.Equals(id) && item.EndDate > DateTime.Now).ToList();
 
                 string studID = db.Users.Where(item => item.UserNick.Equals(User.Identity.Name)).Select(item => item.Real_ID).First();
                 List<Student> searchStud = db.Students.Where(item => item.StudentID.Equals(studID)).ToList();
-
-                System.Diagnostics.Debug.WriteLine(studID);
-                System.Diagnostics.Debug.WriteLine(User.Identity.Name);
 
                 ViewBag.IDAward = new SelectList(db.Awards, "AwardID", "CompetitionID");
                 ViewBag.IDCompetition = new SelectList(searchComp, "CompetitionID", "CompetitionID");
