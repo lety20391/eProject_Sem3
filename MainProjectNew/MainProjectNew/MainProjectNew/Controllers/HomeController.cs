@@ -20,9 +20,8 @@ namespace MainProjectNew.Controllers
 
         public ActionResult Contact()
         {
-            
-
             return View("Contact", "_Layout");
         }
+
     }
 }
